@@ -9,8 +9,8 @@ export const UsuariosApp = () => {
                     </div>
 
                     <form>
-                        <input type="text" id="login" className="fadeIn second" name="login" placeholder="Usuario" />
-                        <input type="text" id="password" className="fadeIn third" name="password" placeholder="Contraseña" />
+                        <input type="text" id="usuario" className="fadeIn second" name="usuario" placeholder="Usuario" />
+                        <input type="password" id="password" className="fadeIn third" name="password" placeholder="Contraseña" />
                         <input type="submit" className="fadeIn fourth" value="Entrar" />
                     </form>
 
