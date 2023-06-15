@@ -1,7 +1,11 @@
 import { VistaFormaUsuario } from './components/VistaFormaUsuario';
 import { VistaListaUsuarios } from './components/VistaListaUsuarios';
+import { getUsuarios } from './services/servicioUsuarios';
 
 export const UsuariosApp = () => {
+
+    const usuariosIniciales = getUsuarios();
+
     return (
         <>
             <div className="card my-4 mx-4">
@@ -14,7 +18,7 @@ export const UsuariosApp = () => {
                             <VistaFormaUsuario />
                         </div>
                         <div className="col">
-                            <VistaListaUsuarios />
+                            <VistaListaUsuarios usuarios={usuariosIniciales} />
                         </div>
                     </div>
                 </div>
