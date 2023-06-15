@@ -5,6 +5,9 @@ import { getUsuarios } from './services/servicioUsuarios';
 export const UsuariosApp = () => {
 
     const usuariosIniciales = getUsuarios();
+    const handlerAgregaUsuario = (usuario) => {
+        console.log('usuario: ', usuario);
+    }
 
     return (
         <>
@@ -15,10 +18,14 @@ export const UsuariosApp = () => {
                     <p className="card-text">Usuarios App</p>
                     <div className="row">
                         <div className="col">
-                            <VistaFormaUsuario />
+                            <VistaFormaUsuario                                
+                                handlerAgregaUsuario={handlerAgregaUsuario} 
+                            />
                         </div>
                         <div className="col">
-                            <VistaListaUsuarios usuarios={usuariosIniciales} />
+                            <VistaListaUsuarios 
+                                usuarios={usuariosIniciales}
+                            />
                         </div>
                     </div>
                 </div>

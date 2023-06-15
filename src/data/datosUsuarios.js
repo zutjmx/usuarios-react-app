@@ -28,3 +28,12 @@ export const generaArregloUsuarios = () => {
     }
     return usuarios;
 }
+
+export const generaUsuarioVacio = () => {
+    const usuario = {
+        username: '',
+        password: '',
+        email: '',
+    }
+    return usuario;
+}
