@@ -1,19 +1,22 @@
+import { VistaFormaUsuario } from './components/VistaFormaUsuario';
+import { VistaListaUsuarios } from './components/VistaListaUsuarios';
+
 export const UsuariosApp = () => {
     return (
         <>
-            <div className="wrapper fadeInDown">
-                <div id="formContent">
-
-                    <div className="fadeIn first">
-                        <img src="/circulo-de-usuario.svg" id="icon" alt="User Icon" />
+            <div className="card my-4 mx-4">
+                <h5 className="card-header">Usuarios App</h5>
+                <div className="card-body">
+                    <h5 className="card-title">Usuarios App</h5>
+                    <p className="card-text">Usuarios App</p>
+                    <div className="row">
+                        <div className="col">
+                            <VistaFormaUsuario />
+                        </div>
+                        <div className="col">
+                            <VistaListaUsuarios />
+                        </div>
                     </div>
-
-                    <form>
-                        <input type="text" id="usuario" className="fadeIn second" name="usuario" placeholder="Usuario" />
-                        <input type="password" id="password" className="fadeIn third" name="password" placeholder="Contraseña" />
-                        <input type="submit" className="fadeIn fourth" value="Entrar" />
-                    </form>
-
                 </div>
             </div>
         </>
