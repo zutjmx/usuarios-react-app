@@ -6,7 +6,7 @@ import { validaEmail } from '../services/servicioUsuarios';
 
 export const VistaFormaUsuario = ({handlerAgregaUsuario, usuarioFormaInicial, usuarioSeleccionado}) => {
     const [formaUsuario, setFormaUsuario] = useState(usuarioFormaInicial);
-    const {username,email,password} = formaUsuario;
+    const {id, username,email,password} = formaUsuario;
     
     const onInputChange = ({target}) => {
         const {name, value} = target;
@@ -57,7 +57,6 @@ export const VistaFormaUsuario = ({handlerAgregaUsuario, usuarioFormaInicial, us
     useEffect(() => {
         setFormaUsuario({
             ...usuarioSeleccionado,
-            //password: '',
         })
     }, [usuarioSeleccionado]);
 
@@ -87,7 +86,8 @@ export const VistaFormaUsuario = ({handlerAgregaUsuario, usuarioFormaInicial, us
                                    onChange={onInputChange}
                             />
                         </div>
-                        <div className="mb-3">
+                        {id > 0 || 
+                            <div className="mb-3">
                             <input type="password" 
                                    className="form-control" 
                                    id="password"
@@ -96,8 +96,12 @@ export const VistaFormaUsuario = ({handlerAgregaUsuario, usuarioFormaInicial, us
                                    placeholder="Contraseña" 
                                    onChange={onInputChange}
                             />
-                        </div>
-                        <button type="submit" className="btn btn-primary">Guardar</button>
+                            </div>
+                        }                        
+                        <input type="hidden" name="id" value={id}/>
+                        <button type="submit" className="btn btn-primary">
+                            {id > 0 ? 'Actualizar': 'Agregar'}
+                        </button>
                     </form>
                 </div>
             </div>

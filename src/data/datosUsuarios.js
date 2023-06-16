@@ -31,6 +31,7 @@ export const generaArregloUsuarios = () => {
 
 export const generaUsuarioVacio = () => {
     const usuario = {
+        id: 0,
         username: '',
         password: '',
         email: '',

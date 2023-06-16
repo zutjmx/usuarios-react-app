@@ -9,7 +9,14 @@ export const usuariosReducer = (state = [], action) => {
                 }
             ];
         case 'actualizarUsuario':
-            break;
+            return state.map(u => {
+                if(u.id === action.payload.id) {
+                    return {
+                        ...action.payload
+                    };
+                }
+                return u;
+            });
         case 'borrarUsuario':
             return state.filter(usuario => usuario.id !== action.payload);
         default:

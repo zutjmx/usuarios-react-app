@@ -19,13 +19,25 @@ export const UsuariosApp = () => {
     }
 
     const handlerAgregaUsuario = (usuario) => {
+        let type;
+        let mensaje = '';
+
+        if(usuario.id === 0) {
+            type = 'agregarUsuario';
+            mensaje = 'Se agregó el usuario';
+        } else {
+            type = 'actualizarUsuario';
+            mensaje = 'Se actualizó el usuario';
+        }
+
         dispatch({
-            type: 'agregarUsuario',
+            type,
             payload: usuario,
         });
+
         Swal.fire(
             'Nuevo Usuario',
-            'Se guardó el usuario',
+            mensaje,
             'success'
         );
     }
