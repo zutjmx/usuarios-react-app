@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { VistaRenglonUsuario } from './VistaRenglonUsuario';
 
-export const VistaListaUsuarios = ({handlerBorrarUsuario,usuarios=[]}) => {
+export const VistaListaUsuarios = ({handlerBorrarUsuario,handlerUsuarioSeleccionadoForma,usuarios=[]}) => {
     return (
         <>
             <div className="card">
@@ -19,12 +19,14 @@ export const VistaListaUsuarios = ({handlerBorrarUsuario,usuarios=[]}) => {
                         </thead>
                         <tbody>
                             {
-                                usuarios.map(({id, username, email}) => (
+                                usuarios.map(({id, username, email, password}) => (
                                     <VistaRenglonUsuario key={id}
                                                          id={id} 
                                                          username={username}
                                                          email={email}
+                                                         password={password}
                                                          handlerBorrarUsuario={handlerBorrarUsuario}
+                                                         handlerUsuarioSeleccionadoForma={handlerUsuarioSeleccionadoForma}
                                     />
                                 ))
                             }
@@ -38,5 +40,6 @@ export const VistaListaUsuarios = ({handlerBorrarUsuario,usuarios=[]}) => {
 
 VistaListaUsuarios.propTypes = {
     usuarios: PropTypes.array.isRequired,
-    handlerBorrarUsuario: PropTypes.any.isRequired
+    handlerBorrarUsuario: PropTypes.any.isRequired,
+    handlerUsuarioSeleccionadoForma: PropTypes.any.isRequired
 }

@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 import { useState } from "react";
 import Swal from 'sweetalert2';
-import { getUsuarioInicial, validaEmail } from '../services/servicioUsuarios';
+import { validaEmail } from '../services/servicioUsuarios';
 
-export const VistaFormaUsuario = ({handlerAgregaUsuario}) => {
-    const [formaUsuario, setFormaUsuario] = useState(getUsuarioInicial());
+export const VistaFormaUsuario = ({handlerAgregaUsuario, usuarioFormaInicial, usuarioSeleccionado}) => {
+    const [formaUsuario, setFormaUsuario] = useState(usuarioFormaInicial);
     const {username,email,password} = formaUsuario;
+    
     const onInputChange = ({target}) => {
         const {name, value} = target;
         setFormaUsuario({
@@ -13,6 +15,7 @@ export const VistaFormaUsuario = ({handlerAgregaUsuario}) => {
             [name]: value,
         });
     }
+
     const onSubmit = (event) => {
         event.preventDefault();        
         if(!username) {
@@ -48,8 +51,15 @@ export const VistaFormaUsuario = ({handlerAgregaUsuario}) => {
             return;
         }
         handlerAgregaUsuario(formaUsuario);
-        setFormaUsuario(getUsuarioInicial());
+        setFormaUsuario(usuarioFormaInicial);
     }
+
+    useEffect(() => {
+        setFormaUsuario({
+            ...usuarioSeleccionado,
+            //password: '',
+        })
+    }, [usuarioSeleccionado]);
 
     return (
         <>
@@ -96,5 +106,7 @@ export const VistaFormaUsuario = ({handlerAgregaUsuario}) => {
 }
 
 VistaFormaUsuario.propTypes = {
-    handlerAgregaUsuario: PropTypes.any.isRequired
+    handlerAgregaUsuario: PropTypes.any.isRequired,
+    usuarioFormaInicial: PropTypes.object.isRequired,
+    usuarioSeleccionado: PropTypes.object.isRequired,
 }

@@ -1,15 +1,22 @@
+import { useState } from 'react';
 import { useReducer } from 'react';
 import Swal from 'sweetalert2';
 import { VistaFormaUsuario } from './components/VistaFormaUsuario';
 import { VistaListaUsuarios } from './components/VistaListaUsuarios';
 import { usuariosReducer } from './reducers/usuariosReducer';
-import { getUsuarios } from './services/servicioUsuarios';
+import { getUsuarios, getUsuarioInicial } from './services/servicioUsuarios';
 
 export const UsuariosApp = () => {
 
     const usuariosIniciales = getUsuarios();
+    const usuarioFormaInicial = getUsuarioInicial();
 
     const [usuarios, dispatch] = useReducer(usuariosReducer, usuariosIniciales);
+    const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(usuarioFormaInicial);
+
+    const handlerUsuarioSeleccionadoForma = (usuario) => {
+        setUsuarioSeleccionado({...usuario});
+    }
 
     const handlerAgregaUsuario = (usuario) => {
         dispatch({
@@ -52,14 +59,22 @@ export const UsuariosApp = () => {
                     <div className="row">
                         <div className="col">
                             <VistaFormaUsuario
+                                usuarioSeleccionado={usuarioSeleccionado}
                                 handlerAgregaUsuario={handlerAgregaUsuario}
+                                usuarioFormaInicial={usuarioFormaInicial}
                             />
                         </div>
                         <div className="col">
-                            <VistaListaUsuarios
-                                usuarios={usuarios}
-                                handlerBorrarUsuario={handlerBorrarUsuario}
-                            />
+                            {
+                                usuarios.length === 0
+                                ? <div className="alert alert-info">No hay usuarios registrados</div>
+                                : <VistaListaUsuarios
+                                    usuarios={usuarios}
+                                    handlerBorrarUsuario={handlerBorrarUsuario}
+                                    handlerUsuarioSeleccionadoForma={handlerUsuarioSeleccionadoForma}
+                                  />
+                            }
+                            
                         </div>
                     </div>
                 </div>

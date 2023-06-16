@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker/locale/es_MX';
 const generaArrNumerico = () => {
     let numeros = [];
     //Se llena un arreglo de núemros
-    for (let index = 0; index < 20; index++) {
+    for (let index = 0; index < 8; index++) {
         const numero = faker.number.int({min:100,max:200});
         numeros.push(numero);
     }
