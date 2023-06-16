@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { VistaRenglonUsuario } from './VistaRenglonUsuario';
 
-export const VistaListaUsuarios = ({usuarios=[]}) => {
+export const VistaListaUsuarios = ({handlerBorrarUsuario,usuarios=[]}) => {
     return (
         <>
             <div className="card">
@@ -24,6 +24,7 @@ export const VistaListaUsuarios = ({usuarios=[]}) => {
                                                          id={id} 
                                                          username={username}
                                                          email={email}
+                                                         handlerBorrarUsuario={handlerBorrarUsuario}
                                     />
                                 ))
                             }
@@ -36,5 +37,6 @@ export const VistaListaUsuarios = ({usuarios=[]}) => {
 }
 
 VistaListaUsuarios.propTypes = {
-    usuarios: PropTypes.array.isRequired
+    usuarios: PropTypes.array.isRequired,
+    handlerBorrarUsuario: PropTypes.any.isRequired
 }

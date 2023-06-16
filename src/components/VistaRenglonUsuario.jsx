@@ -1,6 +1,11 @@
 import PropTypes from 'prop-types';
 
-export const VistaRenglonUsuario = ({id, username, email}) => {
+export const VistaRenglonUsuario = ({id, username, email, handlerBorrarUsuario}) => {
+
+    const onBorrarUsuario = (id) => {
+        handlerBorrarUsuario(id);
+    }
+
     return (
         <>
             <tr>
@@ -13,7 +18,11 @@ export const VistaRenglonUsuario = ({id, username, email}) => {
                     </button>
                 </td>
                 <td>
-                    <button type="button" className='btn btn-danger btn-sm'>
+                    <button 
+                        type="button" 
+                        className='btn btn-danger btn-sm' 
+                        onClick={() => onBorrarUsuario(id)}
+                    >
                         Eliminar
                     </button>
                 </td>
@@ -25,5 +34,6 @@ export const VistaRenglonUsuario = ({id, username, email}) => {
 VistaRenglonUsuario.propTypes = {
     id: PropTypes.number.isRequired,
     username: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired
+    email: PropTypes.string.isRequired,
+    handlerBorrarUsuario: PropTypes.any.isRequired
 }

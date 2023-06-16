@@ -1,12 +1,45 @@
+import { useReducer } from 'react';
+import Swal from 'sweetalert2';
 import { VistaFormaUsuario } from './components/VistaFormaUsuario';
 import { VistaListaUsuarios } from './components/VistaListaUsuarios';
+import { usuariosReducer } from './reducers/usuariosReducer';
 import { getUsuarios } from './services/servicioUsuarios';
 
 export const UsuariosApp = () => {
 
     const usuariosIniciales = getUsuarios();
+
+    const [usuarios, dispatch] = useReducer(usuariosReducer, usuariosIniciales);
+
     const handlerAgregaUsuario = (usuario) => {
-        console.log('usuario: ', usuario);
+        dispatch({
+            type: 'agregarUsuario',
+            payload: usuario,
+        });
+        Swal.fire(
+            'Nuevo Usuario',
+            'Se guardó el usuario',
+            'success'
+        );
+    }
+
+    const handlerBorrarUsuario = (id) => {
+        Swal.fire({
+            title: `¿Quiere borrar el usuario con ID: ${id}?`,
+            showDenyButton: true,
+            confirmButtonText: 'Borrar',
+            denyButtonText: `No Borrar`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch({
+                    type: 'borrarUsuario',
+                    payload: id,
+                });
+                Swal.fire('Borrado', '', 'success')
+            } else if (result.isDenied) {
+                Swal.fire('No se borró', '', 'info')
+            }
+        })
     }
 
     return (
@@ -18,13 +51,14 @@ export const UsuariosApp = () => {
                     <p className="card-text">Usuarios App</p>
                     <div className="row">
                         <div className="col">
-                            <VistaFormaUsuario                                
-                                handlerAgregaUsuario={handlerAgregaUsuario} 
+                            <VistaFormaUsuario
+                                handlerAgregaUsuario={handlerAgregaUsuario}
                             />
                         </div>
                         <div className="col">
-                            <VistaListaUsuarios 
-                                usuarios={usuariosIniciales}
+                            <VistaListaUsuarios
+                                usuarios={usuarios}
+                                handlerBorrarUsuario={handlerBorrarUsuario}
                             />
                         </div>
                     </div>

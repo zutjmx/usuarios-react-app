@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from "react";
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import { getUsuarioInicial, validaEmail } from '../services/servicioUsuarios';
 
 export const VistaFormaUsuario = ({handlerAgregaUsuario}) => {
