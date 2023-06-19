@@ -18,14 +18,17 @@ export const UsuariosApp = () => {
 
     return (
         <>
-            <div className="card my-4 mx-4">
-                <h3 className="card-header">Bienvenido a Usuarios App</h3>
-                <div className="card-body">
-                    <h5 className="card-title">Aplicación CRUD creada en React</h5>
-                    <p className="card-text">zutjmx@gmail.com</p>
-                    <div className="row">                        
-                            {!formularioVisible ||
-                                <div className="col">
+            {!formularioVisible || 
+                <div className="abrir-modal animacion fadeIn">
+                    <div className="modal" style={{display: "block"}} tabIndex="-1">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">
+                                        {usuarioSeleccionado.id>0? 'Editar': 'Crear'} Usuario
+                                    </h5>
+                                </div>
+                                <div className="modal-body">
                                     <VistaFormaUsuario
                                         usuarioSeleccionado={usuarioSeleccionado}
                                         handlerAgregaUsuario={handlerAgregaUsuario}
@@ -33,7 +36,17 @@ export const UsuariosApp = () => {
                                         handlerCierraForma={handlerCierraForma}
                                     />
                                 </div>
-                            }                                                    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div className="card my-4 mx-4">
+                <h3 className="card-header">Bienvenido a Usuarios App</h3>
+                <div className="card-body">
+                    <h5 className="card-title">Aplicación CRUD creada en React</h5>
+                    <p className="card-text">zutjmx@gmail.com</p>
+                    <div className="row">                        
                         <div className="col">
                             {formularioVisible || 
                                 <button 
