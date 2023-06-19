@@ -44,6 +44,8 @@ export const useUsuarios = () => {
     const handlerBorrarUsuario = (id) => {
         Swal.fire({
             title: `¿Quiere borrar el usuario con ID: ${id}?`,
+            text: 'El borrado no podrá revertirse.',
+            icon: 'warning',
             showDenyButton: true,
             confirmButtonText: 'Borrar',
             denyButtonText: `No Borrar`,
