@@ -4,13 +4,13 @@ import { useState } from "react";
 import Swal from 'sweetalert2';
 import { validaEmail } from '../services/servicioUsuarios';
 
-export const VistaFormaUsuario = ({handlerAgregaUsuario, usuarioFormaInicial, usuarioSeleccionado}) => {
+export const VistaFormaUsuario = ({ handlerAgregaUsuario, usuarioFormaInicial, usuarioSeleccionado, handlerCierraForma }) => {
     const [formaUsuario, setFormaUsuario] = useState(usuarioFormaInicial);
-    const {id, username,email,password} = formaUsuario;
+    const { id, username, email, password } = formaUsuario;
     const tituloMensajes = 'Formulario de Usuario';
-    
-    const onInputChange = ({target}) => {
-        const {name, value} = target;
+
+    const onInputChange = ({ target }) => {
+        const { name, value } = target;
         setFormaUsuario({
             ...formaUsuario,
             [name]: value,
@@ -18,8 +18,8 @@ export const VistaFormaUsuario = ({handlerAgregaUsuario, usuarioFormaInicial, us
     }
 
     const onSubmit = (event) => {
-        event.preventDefault();        
-        if(!username) {
+        event.preventDefault();
+        if (!username) {
             Swal.fire(
                 tituloMensajes,
                 'Se requiere el usuario',
@@ -27,7 +27,7 @@ export const VistaFormaUsuario = ({handlerAgregaUsuario, usuarioFormaInicial, us
             );
             return;
         }
-        if(!email) {
+        if (!email) {
             Swal.fire(
                 tituloMensajes,
                 'Se requiere el email',
@@ -43,7 +43,7 @@ export const VistaFormaUsuario = ({handlerAgregaUsuario, usuarioFormaInicial, us
             );
             return;
         }
-        if(!password) {
+        if (!password) {
             Swal.fire(
                 tituloMensajes,
                 'Se requiere la contraseña',
@@ -61,6 +61,11 @@ export const VistaFormaUsuario = ({handlerAgregaUsuario, usuarioFormaInicial, us
         })
     }, [usuarioSeleccionado]);
 
+    const onCierraForma = () => {
+        handlerCierraForma();
+        setFormaUsuario(usuarioFormaInicial);
+    }
+
     return (
         <>
             <div className="card my-3">
@@ -68,40 +73,47 @@ export const VistaFormaUsuario = ({handlerAgregaUsuario, usuarioFormaInicial, us
                 <div className="card-body">
                     <form onSubmit={onSubmit}>
                         <div className="mb-3">
-                            <input type="text" 
-                                   className="form-control" 
-                                   id="username"
-                                   name="username"
-                                   value={username} 
-                                   placeholder="Usuario"
-                                   onChange={onInputChange}
+                            <input type="text"
+                                className="form-control"
+                                id="username"
+                                name="username"
+                                value={username}
+                                placeholder="Usuario"
+                                onChange={onInputChange}
                             />
                         </div>
                         <div className="mb-3">
-                            <input type="email" 
-                                   className="form-control" 
-                                   id="email"
-                                   name="email"
-                                   value={email} 
-                                   placeholder="Email"
-                                   onChange={onInputChange}
+                            <input type="email"
+                                className="form-control"
+                                id="email"
+                                name="email"
+                                value={email}
+                                placeholder="Email"
+                                onChange={onInputChange}
                             />
                         </div>
-                        {id > 0 || 
+                        {id > 0 ||
                             <div className="mb-3">
-                            <input type="password" 
-                                   className="form-control" 
-                                   id="password"
-                                   name="password"
-                                   value={password} 
-                                   placeholder="Contraseña" 
-                                   onChange={onInputChange}
-                            />
+                                <input type="password"
+                                    className="form-control"
+                                    id="password"
+                                    name="password"
+                                    value={password}
+                                    placeholder="Contraseña"
+                                    onChange={onInputChange}
+                                />
                             </div>
-                        }                        
-                        <input type="hidden" name="id" value={id}/>
+                        }
+                        <input type="hidden" name="id" value={id} />
                         <button type="submit" className="btn btn-primary">
-                            {id > 0 ? 'Actualizar': 'Agregar'}
+                            {id > 0 ? 'Actualizar' : 'Agregar'}
+                        </button>
+                        <button 
+                            className="btn btn-info mx-2" 
+                            type="button"
+                            onClick={() => onCierraForma()}
+                        >
+                            Cerrar Formulario
                         </button>
                     </form>
                 </div>
@@ -114,4 +126,5 @@ VistaFormaUsuario.propTypes = {
     handlerAgregaUsuario: PropTypes.any.isRequired,
     usuarioFormaInicial: PropTypes.object.isRequired,
     usuarioSeleccionado: PropTypes.object.isRequired,
+    handlerCierraForma: PropTypes.any.isRequired,
 }

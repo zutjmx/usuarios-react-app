@@ -9,9 +9,11 @@ const usuarioFormaInicial = getUsuarioInicial();
 export const useUsuarios = () => {
     const [usuarios, dispatch] = useReducer(usuariosReducer, usuariosIniciales);
     const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(usuarioFormaInicial);
+    const [formularioVisible, setFormularioVisible] = useState(false);
 
     const handlerUsuarioSeleccionadoForma = (usuario) => {
         setUsuarioSeleccionado({...usuario});
+        setFormularioVisible(true);
     }
 
     const handlerAgregaUsuario = (usuario) => {
@@ -39,6 +41,8 @@ export const useUsuarios = () => {
             mensaje,
             'success'
         );
+
+        handlerCierraForma();
     }
 
     const handlerBorrarUsuario = (id) => {
@@ -62,12 +66,24 @@ export const useUsuarios = () => {
         })
     }
 
+    const handlerAbreForma = () => {
+        setFormularioVisible(true);
+    }
+
+    const handlerCierraForma = () => {
+        setFormularioVisible(false);
+        setUsuarioSeleccionado(usuarioFormaInicial);
+    }
+
     return {
         usuarios,
         usuarioSeleccionado,
         usuarioFormaInicial,
+        formularioVisible,
         handlerAgregaUsuario,
         handlerBorrarUsuario,
-        handlerUsuarioSeleccionadoForma
+        handlerUsuarioSeleccionadoForma,
+        handlerAbreForma,
+        handlerCierraForma
     }
 }
