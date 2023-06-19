@@ -1,65 +1,15 @@
-import { useState } from 'react';
-import { useReducer } from 'react';
-import Swal from 'sweetalert2';
 import { VistaFormaUsuario } from './components/VistaFormaUsuario';
 import { VistaListaUsuarios } from './components/VistaListaUsuarios';
-import { usuariosReducer } from './reducers/usuariosReducer';
-import { getUsuarios, getUsuarioInicial } from './services/servicioUsuarios';
+import { useUsuarios } from './hooks/useUsuarios';
 
 export const UsuariosApp = () => {
 
-    const usuariosIniciales = getUsuarios();
-    const usuarioFormaInicial = getUsuarioInicial();
-
-    const [usuarios, dispatch] = useReducer(usuariosReducer, usuariosIniciales);
-    const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(usuarioFormaInicial);
-
-    const handlerUsuarioSeleccionadoForma = (usuario) => {
-        setUsuarioSeleccionado({...usuario});
-    }
-
-    const handlerAgregaUsuario = (usuario) => {
-        let type;
-        let mensaje = '';
-
-        if(usuario.id === 0) {
-            type = 'agregarUsuario';
-            mensaje = 'Se agregó el usuario';
-        } else {
-            type = 'actualizarUsuario';
-            mensaje = 'Se actualizó el usuario';
-        }
-
-        dispatch({
-            type,
-            payload: usuario,
-        });
-
-        Swal.fire(
-            'Nuevo Usuario',
-            mensaje,
-            'success'
-        );
-    }
-
-    const handlerBorrarUsuario = (id) => {
-        Swal.fire({
-            title: `¿Quiere borrar el usuario con ID: ${id}?`,
-            showDenyButton: true,
-            confirmButtonText: 'Borrar',
-            denyButtonText: `No Borrar`,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                dispatch({
-                    type: 'borrarUsuario',
-                    payload: id,
-                });
-                Swal.fire('Borrado', '', 'success')
-            } else if (result.isDenied) {
-                Swal.fire('No se borró', '', 'info')
-            }
-        })
-    }
+    const { usuarios, 
+        usuarioFormaInicial, 
+        usuarioSeleccionado, 
+        handlerAgregaUsuario, 
+        handlerBorrarUsuario, 
+        handlerUsuarioSeleccionadoForma } = useUsuarios();
 
     return (
         <>
