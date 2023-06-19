@@ -69,7 +69,7 @@ export const VistaFormaUsuario = ({ handlerAgregaUsuario, usuarioFormaInicial, u
     return (
         <>
             <div className="card my-3">
-                <h5 className="card-header">Formulario de Usuario</h5>
+                <h5 className="card-header">Capture los datos del Usuario</h5>
                 <div className="card-body">
                     <form onSubmit={onSubmit}>
                         <div className="mb-3">
