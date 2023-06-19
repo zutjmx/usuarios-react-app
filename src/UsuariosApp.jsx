@@ -1,5 +1,6 @@
-import { VistaFormaUsuario } from './components/VistaFormaUsuario';
+//import { VistaFormaUsuario } from './components/VistaFormaUsuario';
 import { VistaListaUsuarios } from './components/VistaListaUsuarios';
+import { VistaUsuarioModal } from './components/VistaUsuarioModal';
 import { useUsuarios } from './hooks/useUsuarios';
 
 export const UsuariosApp = () => {
@@ -19,27 +20,12 @@ export const UsuariosApp = () => {
     return (
         <>
             {!formularioVisible || 
-                <div className="abrir-modal animacion fadeIn">
-                    <div className="modal" style={{display: "block"}} tabIndex="-1">
-                        <div className="modal-dialog" role="document">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title">
-                                        {usuarioSeleccionado.id>0? 'Editar': 'Crear'} Usuario
-                                    </h5>
-                                </div>
-                                <div className="modal-body">
-                                    <VistaFormaUsuario
-                                        usuarioSeleccionado={usuarioSeleccionado}
-                                        handlerAgregaUsuario={handlerAgregaUsuario}
-                                        usuarioFormaInicial={usuarioFormaInicial}
-                                        handlerCierraForma={handlerCierraForma}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <VistaUsuarioModal 
+                    usuarioFormaInicial={usuarioFormaInicial}
+                    usuarioSeleccionado={usuarioSeleccionado}
+                    handlerAgregaUsuario={handlerAgregaUsuario}
+                    handlerCierraForma={handlerCierraForma}
+                />
             }
             <div className="card my-4 mx-4">
                 <h3 className="card-header">Bienvenido a Usuarios App</h3>
