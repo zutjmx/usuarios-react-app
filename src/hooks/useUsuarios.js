@@ -16,12 +16,15 @@ export const useUsuarios = () => {
 
     const handlerAgregaUsuario = (usuario) => {
         let type;
+        let titulo = '';
         let mensaje = '';
 
         if(usuario.id === 0) {
+            titulo = 'Usuario Creado';
             type = 'agregarUsuario';
             mensaje = 'Se agregó el usuario';
         } else {
+            titulo = 'Usuario Actualizado';
             type = 'actualizarUsuario';
             mensaje = 'Se actualizó el usuario';
         }
@@ -32,7 +35,7 @@ export const useUsuarios = () => {
         });
 
         Swal.fire(
-            'Nuevo Usuario',
+            titulo,
             mensaje,
             'success'
         );

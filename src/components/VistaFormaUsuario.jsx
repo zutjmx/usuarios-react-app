@@ -7,6 +7,7 @@ import { validaEmail } from '../services/servicioUsuarios';
 export const VistaFormaUsuario = ({handlerAgregaUsuario, usuarioFormaInicial, usuarioSeleccionado}) => {
     const [formaUsuario, setFormaUsuario] = useState(usuarioFormaInicial);
     const {id, username,email,password} = formaUsuario;
+    const tituloMensajes = 'Formulario de Usuario';
     
     const onInputChange = ({target}) => {
         const {name, value} = target;
@@ -20,7 +21,7 @@ export const VistaFormaUsuario = ({handlerAgregaUsuario, usuarioFormaInicial, us
         event.preventDefault();        
         if(!username) {
             Swal.fire(
-                'Formulario Usuario',
+                tituloMensajes,
                 'Se requiere el usuario',
                 'info'
             );
@@ -28,7 +29,7 @@ export const VistaFormaUsuario = ({handlerAgregaUsuario, usuarioFormaInicial, us
         }
         if(!email) {
             Swal.fire(
-                'Formulario Usuario',
+                tituloMensajes,
                 'Se requiere el email',
                 'info'
             );
@@ -36,7 +37,7 @@ export const VistaFormaUsuario = ({handlerAgregaUsuario, usuarioFormaInicial, us
         }
         if (!validaEmail(email)) {
             Swal.fire(
-                'Formulario Usuario',
+                tituloMensajes,
                 'Email inválido',
                 'info'
             );
@@ -44,7 +45,7 @@ export const VistaFormaUsuario = ({handlerAgregaUsuario, usuarioFormaInicial, us
         }
         if(!password) {
             Swal.fire(
-                'Formulario Usuario',
+                tituloMensajes,
                 'Se requiere la contraseña',
                 'info'
             );
