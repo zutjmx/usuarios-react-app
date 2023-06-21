@@ -5,7 +5,7 @@ import { PaginaLogin } from "./auth/pages/PaginaLogin";
 import { loginReducer } from './auth/reducers/loginReducer';
 import { getLoginInicial } from './services/servicioUsuarios';
 
-const logiInicial = getLoginInicial();
+const logiInicial = JSON.parse(sessionStorage.getItem('login')) || getLoginInicial();
 
 export const UsuariosApp = () => {
 
@@ -21,6 +21,7 @@ export const UsuariosApp = () => {
                 type: 'login',
                 payload: user,
             });
+            sessionStorage.setItem('login',JSON.stringify({isAuth: true, user: user}));
             Swal.fire(
                 tituloMensajes,
                 'Login exitoso',
