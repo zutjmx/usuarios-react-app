@@ -1,10 +1,11 @@
 import { useState } from "react";
 import Swal from 'sweetalert2';
+import PropTypes from 'prop-types';
 import { getUsuarioLoginInicial } from '../../services/servicioUsuarios';
 
 const formaLoginInicial = getUsuarioLoginInicial();
 
-export const PaginaLogin = () => {
+export const PaginaLogin = ({handlerLogin}) => {
 
     const tituloMensajes = 'Login';
     const [formaLogin, setFormaLogin] = useState(formaLoginInicial);
@@ -34,21 +35,9 @@ export const PaginaLogin = () => {
             );
             return;
         }
-        //TODO: Implementar validación de acceso.
-        if(username === 'zutjmx' && password === 'sistemas') {
-            // handlerLogin()
-            Swal.fire(
-                tituloMensajes,
-                'Login exitoso',
-                'success'
-            );
-        } else {
-            Swal.fire(
-                tituloMensajes,
-                'Login inválido',
-                'error'
-            );
-        }
+        
+        handlerLogin({username, password});
+        
         setFormaLogin(formaLoginInicial);
     }
 
@@ -89,4 +78,8 @@ export const PaginaLogin = () => {
             </div>
         </>
     );
+}
+
+PaginaLogin.propTypes = {
+    handlerLogin: PropTypes.any.isRequired
 }

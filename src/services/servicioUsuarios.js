@@ -12,6 +12,14 @@ export const getUsuarioLoginInicial = () => {
     return generaUsuarioLoginVacio();
 }
 
+export const getLoginInicial = () => {
+	const loginInicial = {
+		isAuth: false,
+		user: undefined,
+	}
+	return loginInicial;
+}
+
 export const validaEmail = (email) => {
     // Define our regular expression.
 	var validEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
