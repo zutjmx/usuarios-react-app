@@ -1,4 +1,5 @@
 import { useReducer, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { usuariosReducer } from "../reducers/usuariosReducer";
 import { getUsuarioInicial, getUsuarios } from "../services/servicioUsuarios";
@@ -10,6 +11,7 @@ export const useUsuarios = () => {
     const [usuarios, dispatch] = useReducer(usuariosReducer, usuariosIniciales);
     const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(usuarioFormaInicial);
     const [formularioVisible, setFormularioVisible] = useState(false);
+    const navigate = useNavigate();
 
     const handlerUsuarioSeleccionadoForma = (usuario) => {
         setUsuarioSeleccionado({...usuario});
@@ -43,6 +45,7 @@ export const useUsuarios = () => {
         );
 
         handlerCierraForma();
+        navigate('/usuarios');
     }
 
     const handlerBorrarUsuario = (id) => {

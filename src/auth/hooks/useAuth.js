@@ -1,4 +1,5 @@
 import { useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { loginReducer } from '../../auth/reducers/loginReducer';
 import { getLoginInicial } from '../../services/servicioUsuarios';
@@ -10,6 +11,7 @@ export const useAuth = () => {
     const tituloMensajes = 'Login';
 
     const [login, dispatch] = useReducer(loginReducer, logiInicial);
+    const navigate = useNavigate();
 
     const handlerLogin = ({username, password}) => {
         const isLogin = loginUser({username, password});        
@@ -25,6 +27,7 @@ export const useAuth = () => {
                 'Login exitoso',
                 'success'
             );
+            navigate('/usuarios');
         } else {
             Swal.fire(
                 tituloMensajes,
