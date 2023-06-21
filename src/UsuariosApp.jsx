@@ -2,6 +2,7 @@ import { useReducer } from "react";
 import Swal from "sweetalert2";
 import { PaginaUsuarios } from './pages/PaginaUsuarios';
 import { PaginaLogin } from "./auth/pages/PaginaLogin";
+import { Navbar } from './components/layout/Navbar';
 import { loginReducer } from './auth/reducers/loginReducer';
 import { getLoginInicial } from './services/servicioUsuarios';
 
@@ -36,11 +37,22 @@ export const UsuariosApp = () => {
         }
     }
 
+    const handlerLogout = () => {
+        dispatch({
+            type: 'logout',            
+        });
+        sessionStorage.removeItem('login');
+    }
+
     return (
         <>
             {
                 login.isAuth? 
-                <PaginaUsuarios /> 
+                (<>
+                    <Navbar handlerLogout={handlerLogout} />
+                    <PaginaUsuarios />
+                </>)
+                 
                 : <PaginaLogin handlerLogin={handlerLogin} />
             }
         </>
