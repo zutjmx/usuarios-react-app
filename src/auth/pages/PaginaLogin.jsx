@@ -1,7 +1,7 @@
 export const PaginaLogin = () => {
     return (
         <>
-            <div className="modal" tabIndex="-1">
+            <div className="modal" style={{display: 'block'}} tabIndex="-1">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
