@@ -38,3 +38,11 @@ export const generaUsuarioVacio = () => {
     }
     return usuario;
 }
+
+export const generaUsuarioLoginVacio = () => {
+    const usuario = {
+        username: '',
+        password: '',
+    }
+    return usuario;
+}

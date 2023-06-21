@@ -1,10 +1,12 @@
-import { PaginaUsuarios } from './pages/PaginaUsuarios';
+// import { PaginaUsuarios } from './pages/PaginaUsuarios';
+import { PaginaLogin } from "./auth/pages/PaginaLogin";
 
 export const UsuariosApp = () => {
 
     return (
         <>
-            <PaginaUsuarios />
+            <PaginaLogin />
+            {/* <PaginaUsuarios /> */}
         </>
     );
 }

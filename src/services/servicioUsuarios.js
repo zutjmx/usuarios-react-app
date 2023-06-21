@@ -1,4 +1,4 @@
-import { generaArregloUsuarios, generaUsuarioVacio } from '../data/datosUsuarios';
+import { generaArregloUsuarios, generaUsuarioVacio, generaUsuarioLoginVacio } from '../data/datosUsuarios';
 
 export const getUsuarios = () => {
     return generaArregloUsuarios();
@@ -6,6 +6,10 @@ export const getUsuarios = () => {
 
 export const getUsuarioInicial = () => {
     return generaUsuarioVacio();
+}
+
+export const getUsuarioLoginInicial = () => {
+    return generaUsuarioLoginVacio();
 }
 
 export const validaEmail = (email) => {

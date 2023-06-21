@@ -1,4 +1,57 @@
+import { useState } from "react";
+import Swal from 'sweetalert2';
+import { getUsuarioLoginInicial } from '../../services/servicioUsuarios';
+
+const formaLoginInicial = getUsuarioLoginInicial();
+
 export const PaginaLogin = () => {
+
+    const tituloMensajes = 'Login';
+    const [formaLogin, setFormaLogin] = useState(formaLoginInicial);
+    const {username, password} = formaLogin;
+    const onInputChange = ({target}) => {
+        const {name, value} = target;
+        setFormaLogin({
+            ...formaLogin,
+            [name]: value,
+        });
+    }
+    const onSubmit = (event) => {
+        event.preventDefault();
+        if (!username) {
+            Swal.fire(
+                tituloMensajes,
+                'Se requiere el usuario',
+                'info'
+            );
+            return;
+        }
+        if (!password) {
+            Swal.fire(
+                tituloMensajes,
+                'Se requiere la contraseña',
+                'info'
+            );
+            return;
+        }
+        //TODO: Implementar validación de acceso.
+        if(username === 'zutjmx' && password === 'sistemas') {
+            // handlerLogin()
+            Swal.fire(
+                tituloMensajes,
+                'Login exitoso',
+                'success'
+            );
+        } else {
+            Swal.fire(
+                tituloMensajes,
+                'Login inválido',
+                'error'
+            );
+        }
+        setFormaLogin(formaLoginInicial);
+    }
+
     return (
         <>
             <div className="modal" style={{display: 'block'}} tabIndex="-1">
@@ -8,19 +61,23 @@ export const PaginaLogin = () => {
                             <img src="/circulo-de-usuario.svg" id="icon" alt="User Icon" width="100px" height="100px" />
                             <h5 className="modal-title">Capture sus datos de usuario</h5>
                         </div>
-                        <form>
+                        <form onSubmit={onSubmit}>
                             <div className="modal-body">
                                 <input 
                                     type="text" 
                                     className="form-control my-3 w-75" 
                                     placeholder="Usuario" 
                                     name="username"
+                                    value={username}
+                                    onChange={onInputChange}
                                 />
                                 <input 
                                     type="password" 
                                     className="form-control my-3 w-75" 
                                     placeholder="Contraseña" 
                                     name="password"
+                                    value={password}
+                                    onChange={onInputChange}
                                 />
                             </div>
                             <div className="modal-footer">
