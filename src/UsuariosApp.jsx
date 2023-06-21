@@ -14,8 +14,7 @@ export const UsuariosApp = () => {
                 (<>
                     <Navbar handlerLogout={handlerLogout} login={login} />
                     <PaginaUsuarios />
-                </>)
-                 
+                </>)                 
                 : <PaginaLogin handlerLogin={handlerLogin} />
             }
         </>
