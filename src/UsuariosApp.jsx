@@ -38,10 +38,24 @@ export const UsuariosApp = () => {
     }
 
     const handlerLogout = () => {
-        dispatch({
-            type: 'logout',            
-        });
-        sessionStorage.removeItem('login');
+        Swal.fire({
+            title: 'Logout',
+            text: '¿Está seguro que quiere cerrar su sesión?',
+            icon: 'warning',
+            showDenyButton: true,
+            confirmButtonText: 'Sí',
+            denyButtonText: 'No',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch({
+                    type: 'logout',            
+                });
+                sessionStorage.removeItem('login');
+                Swal.fire('Se cerró sesión', '', 'success')
+            } else if (result.isDenied) {
+                Swal.fire('Se permanece en la sesión', '', 'info')
+            }
+        });        
     }
 
     return (
@@ -49,7 +63,7 @@ export const UsuariosApp = () => {
             {
                 login.isAuth? 
                 (<>
-                    <Navbar handlerLogout={handlerLogout} />
+                    <Navbar handlerLogout={handlerLogout} login={login} />
                     <PaginaUsuarios />
                 </>)
                  
