@@ -2,6 +2,7 @@ import { useReducer } from "react";
 import Swal from "sweetalert2";
 import { loginReducer } from '../../auth/reducers/loginReducer';
 import { getLoginInicial } from '../../services/servicioUsuarios';
+import { loginUser } from "../services/authService";
 const logiInicial = JSON.parse(sessionStorage.getItem('login')) || getLoginInicial();
 
 export const useAuth = () => {
@@ -11,8 +12,8 @@ export const useAuth = () => {
     const [login, dispatch] = useReducer(loginReducer, logiInicial);
 
     const handlerLogin = ({username, password}) => {
-        //TODO: Implementar validación de acceso del backend.
-        if(username === 'zutjmx' && password === 'sistemas') {
+        const isLogin = loginUser({username, password});        
+        if(isLogin) {
             const user = {username: 'zutjmx'};
             dispatch({
                 type: 'login',
