@@ -1,7 +1,11 @@
 import PropTypes from 'prop-types';
+import { useContext } from 'react';
 import { NavLink } from "react-router-dom";
+import { UsuarioContexto } from '../context/UsuarioContexto';
 
-export const VistaRenglonUsuario = ({id, username, email, password, handlerBorrarUsuario, handlerUsuarioSeleccionadoForma}) => {
+export const VistaRenglonUsuario = ({id, username, email, password}) => {
+
+    const { handlerBorrarUsuario, handlerUsuarioSeleccionadoForma} = useContext(UsuarioContexto);
 
     const onBorrarUsuario = (id) => {
         handlerBorrarUsuario(id);
@@ -54,6 +58,4 @@ VistaRenglonUsuario.propTypes = {
     username: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
-    handlerBorrarUsuario: PropTypes.any.isRequired,
-    handlerUsuarioSeleccionadoForma: PropTypes.any.isRequired,
 }

@@ -1,7 +1,11 @@
-import PropTypes from 'prop-types';
+import { useContext } from 'react';
 import { VistaRenglonUsuario } from './VistaRenglonUsuario';
+import { UsuarioContexto } from '../context/UsuarioContexto';
 
-export const VistaListaUsuarios = ({handlerBorrarUsuario,handlerUsuarioSeleccionadoForma,usuarios=[]}) => {
+export const VistaListaUsuarios = () => {
+
+    const {usuarios} = useContext(UsuarioContexto);
+    
     return (
         <>
             <div className="card">
@@ -26,8 +30,6 @@ export const VistaListaUsuarios = ({handlerBorrarUsuario,handlerUsuarioSeleccion
                                                          username={username}
                                                          email={email}
                                                          password={password}
-                                                         handlerBorrarUsuario={handlerBorrarUsuario}
-                                                         handlerUsuarioSeleccionadoForma={handlerUsuarioSeleccionadoForma}
                                     />
                                 ))
                             }
@@ -37,10 +39,4 @@ export const VistaListaUsuarios = ({handlerBorrarUsuario,handlerUsuarioSeleccion
             </div>
         </>
     );
-}
-
-VistaListaUsuarios.propTypes = {
-    usuarios: PropTypes.array.isRequired,
-    handlerBorrarUsuario: PropTypes.any.isRequired,
-    handlerUsuarioSeleccionadoForma: PropTypes.any.isRequired
 }

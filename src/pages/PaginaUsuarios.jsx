@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useContext } from 'react';
 import { VistaListaUsuarios } from '../components/VistaListaUsuarios';
 import { VistaUsuarioModal } from '../components/VistaUsuarioModal';
@@ -8,8 +7,6 @@ export const PaginaUsuarios = () => {
 
     const {usuarios, 
         formularioVisible,
-        handlerBorrarUsuario, 
-        handlerUsuarioSeleccionadoForma, 
         handlerAbreForma} = useContext(UsuarioContexto);
     
     return (
@@ -35,11 +32,7 @@ export const PaginaUsuarios = () => {
                             {
                                 usuarios.length === 0
                                 ? <div className="alert alert-info">No hay usuarios registrados</div>
-                                : <VistaListaUsuarios
-                                    usuarios={usuarios}
-                                    handlerBorrarUsuario={handlerBorrarUsuario}
-                                    handlerUsuarioSeleccionadoForma={handlerUsuarioSeleccionadoForma}
-                                  />
+                                : <VistaListaUsuarios/>
                             }                            
                         </div>
                     </div>
@@ -47,16 +40,4 @@ export const PaginaUsuarios = () => {
             </div>
         </>
     );
-}
-
-PaginaUsuarios.propTypes = {
-    usuarios: PropTypes.array, 
-    usuarioFormaInicial: PropTypes.object, 
-    usuarioSeleccionado: PropTypes.object, 
-    formularioVisible: PropTypes.bool,
-    handlerAgregaUsuario: PropTypes.any, 
-    handlerBorrarUsuario: PropTypes.any, 
-    handlerUsuarioSeleccionadoForma: PropTypes.any, 
-    handlerAbreForma: PropTypes.any, 
-    handlerCierraForma: PropTypes.any
 }
