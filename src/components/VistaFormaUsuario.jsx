@@ -38,7 +38,7 @@ export const VistaFormaUsuario = ({ handlerAgregaUsuario, usuarioFormaInicial, u
         if (!validaEmail(email)) {
             Swal.fire(
                 tituloMensajes,
-                'Email inválido',
+                'Email inválido, debe ser de la forma username@dominio',
                 'info'
             );
             return;

@@ -9,8 +9,10 @@ export const PaginaRegistro = ({handlerAgregaUsuario, usuarioFormaInicial, usuar
     const {id} = useParams();
 
     useEffect(() => {
-        const usuario = usuarios.find(u => u.id == id) || usuarioFormaInicial;
-        setUsuarioSeleccionado(usuario);
+        if(id) {
+            const usuario = usuarios.find(u => u.id == id) || usuarioFormaInicial;
+            setUsuarioSeleccionado(usuario);
+        }        
     },[id, usuarios, usuarioFormaInicial]);
 
     return (
