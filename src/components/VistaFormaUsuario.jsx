@@ -125,6 +125,6 @@ export const VistaFormaUsuario = ({ handlerAgregaUsuario, usuarioFormaInicial, u
 VistaFormaUsuario.propTypes = {
     handlerAgregaUsuario: PropTypes.any.isRequired,
     usuarioFormaInicial: PropTypes.object.isRequired,
-    usuarioSeleccionado: PropTypes.object.isRequired,
-    handlerCierraForma: PropTypes.any.isRequired,
+    usuarioSeleccionado: PropTypes.object,
+    handlerCierraForma: PropTypes.any,
 }

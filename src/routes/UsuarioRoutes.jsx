@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { Navbar } from "../components/layout/Navbar";
 import { PaginaUsuarios } from '../pages/PaginaUsuarios';
+import { PaginaRegistro } from '../pages/PaginaRegistro';
 
 export const UsuarioRoutes = ({handlerLogout,login}) => {
     return (
@@ -9,6 +10,7 @@ export const UsuarioRoutes = ({handlerLogout,login}) => {
             <Navbar handlerLogout={handlerLogout} login={login} />
             <Routes>
                 <Route path="usuarios" element={<PaginaUsuarios />}/>
+                <Route path="usuarios/registro" element={<PaginaRegistro />}/>
                 <Route path="/" element={<Navigate to="usuarios" />}/>
             </Routes>
         </>
