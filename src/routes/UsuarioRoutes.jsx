@@ -38,6 +38,11 @@ export const UsuarioRoutes = ({handlerLogout,login}) => {
                                                             handlerAgregaUsuario={handlerAgregaUsuario}
                                                             usuarioFormaInicial={usuarioFormaInicial}
                 />}/>
+                <Route path="usuarios/edicion/:id" element={<PaginaRegistro
+                                                            usuarios={usuarios}
+                                                            handlerAgregaUsuario={handlerAgregaUsuario}
+                                                            usuarioFormaInicial={usuarioFormaInicial}
+                />}/>
                 <Route path="usuarios/primereact" element={<VistaPrimeReact/>}/>
                 <Route path="/" element={<Navigate to="usuarios" />}/>
             </Routes>

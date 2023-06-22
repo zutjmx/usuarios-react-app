@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { NavLink } from "react-router-dom";
 
 export const VistaRenglonUsuario = ({id, username, email, password, handlerBorrarUsuario, handlerUsuarioSeleccionadoForma}) => {
 
@@ -27,6 +28,12 @@ export const VistaRenglonUsuario = ({id, username, email, password, handlerBorra
                     >
                         Editar
                     </button>
+                </td>
+                <td>
+                    <NavLink 
+                        className={'btn btn-secondary btn-sm'} 
+                        to={'/usuarios/edicion/' + id}
+                    >Editar con Ruta</NavLink>
                 </td>
                 <td>
                     <button 

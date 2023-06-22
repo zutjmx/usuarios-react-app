@@ -14,6 +14,7 @@ export const VistaListaUsuarios = ({handlerBorrarUsuario,handlerUsuarioSeleccion
                                 <th>Usuario</th>
                                 <th>Email</th>
                                 <th>Editar</th>
+                                <th>Editar con Ruta</th>
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
