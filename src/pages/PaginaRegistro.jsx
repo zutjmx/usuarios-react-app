@@ -16,7 +16,9 @@ export const PaginaRegistro = ({handlerAgregaUsuario, usuarioFormaInicial, usuar
     return (
         <>
             <div className="card my-4 mx-4">
-                <h4 className="card-header">Registro de Usuario</h4>
+                <h4 className="card-header">
+                    {usuarioSeleccionado.id > 0 ? 'Editar Usuario' : 'Registro de Usuario'}                    
+                </h4>
                 <div className="card-body">
                     <div className="row">
                         <div className="col">
