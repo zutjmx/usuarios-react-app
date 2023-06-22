@@ -1,21 +1,18 @@
+import PropTypes from 'prop-types';
 import { VistaListaUsuarios } from '../components/VistaListaUsuarios';
 import { VistaUsuarioModal } from '../components/VistaUsuarioModal';
-import { useUsuarios } from '../hooks/useUsuarios';
 
-export const PaginaUsuarios = () => {
+export const PaginaUsuarios = ({usuarios, 
+                                usuarioFormaInicial, 
+                                usuarioSeleccionado, 
+                                formularioVisible,
+                                handlerAgregaUsuario, 
+                                handlerBorrarUsuario, 
+                                handlerUsuarioSeleccionadoForma, 
+                                handlerAbreForma, 
+                                handlerCierraForma}) => {
 
-    const { 
-        usuarios, 
-        usuarioFormaInicial, 
-        usuarioSeleccionado, 
-        formularioVisible,
-        handlerAgregaUsuario, 
-        handlerBorrarUsuario, 
-        handlerUsuarioSeleccionadoForma, 
-        handlerAbreForma, 
-        handlerCierraForma 
-    } = useUsuarios();
-
+    
     return (
         <>
             {!formularioVisible || 
@@ -56,4 +53,16 @@ export const PaginaUsuarios = () => {
             </div>
         </>
     );
+}
+
+PaginaUsuarios.propTypes = {
+    usuarios: PropTypes.array, 
+    usuarioFormaInicial: PropTypes.object, 
+    usuarioSeleccionado: PropTypes.object, 
+    formularioVisible: PropTypes.bool,
+    handlerAgregaUsuario: PropTypes.any, 
+    handlerBorrarUsuario: PropTypes.any, 
+    handlerUsuarioSeleccionadoForma: PropTypes.any, 
+    handlerAbreForma: PropTypes.any, 
+    handlerCierraForma: PropTypes.any
 }

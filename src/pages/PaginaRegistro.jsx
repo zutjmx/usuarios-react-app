@@ -6,10 +6,9 @@ export const PaginaRegistro = ({handlerAgregaUsuario, usuarioFormaInicial}) => {
     const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(usuarioFormaInicial);
     return (
         <>
-            <div className="card">
+            <div className="card my-4 mx-4">
                 <h4 className="card-header">Registro de Usuario</h4>
                 <div className="card-body">
-                    <h5 className="card-title">Proporcione los siguientes datos para registrar un usuario</h5>
                     <div className="row">
                         <div className="col">
                             <VistaFormaUsuario

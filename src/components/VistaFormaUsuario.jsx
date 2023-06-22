@@ -108,13 +108,15 @@ export const VistaFormaUsuario = ({ handlerAgregaUsuario, usuarioFormaInicial, u
                         <button type="submit" className="btn btn-primary">
                             {id > 0 ? 'Actualizar' : 'Agregar'}
                         </button>
-                        <button 
-                            className="btn btn-info mx-2" 
-                            type="button"
-                            onClick={() => onCierraForma()}
-                        >
-                            Cerrar Formulario
-                        </button>
+                        {!handlerCierraForma || 
+                            <button 
+                                className="btn btn-info mx-2" 
+                                type="button"
+                                onClick={() => onCierraForma()}
+                            >
+                                Cerrar Formulario
+                            </button>
+                        }                        
                     </form>
                 </div>
             </div>
@@ -123,8 +125,8 @@ export const VistaFormaUsuario = ({ handlerAgregaUsuario, usuarioFormaInicial, u
 }
 
 VistaFormaUsuario.propTypes = {
-    handlerAgregaUsuario: PropTypes.any.isRequired,
-    usuarioFormaInicial: PropTypes.object.isRequired,
+    handlerAgregaUsuario: PropTypes.any,
+    usuarioFormaInicial: PropTypes.object,
     usuarioSeleccionado: PropTypes.object,
     handlerCierraForma: PropTypes.any,
 }
