@@ -1,7 +1,11 @@
-import PropTypes from 'prop-types';
+import { useContext } from 'react';
 import { VistaFormaUsuario } from "./VistaFormaUsuario";
+import { UsuarioContexto } from '../context/UsuarioContexto';
 
-export const VistaUsuarioModal = ({usuarioSeleccionado,handlerAgregaUsuario,usuarioFormaInicial,handlerCierraForma}) => {
+export const VistaUsuarioModal = () => {
+    
+    const {usuarioSeleccionado,handlerCierraForma} = useContext(UsuarioContexto);
+
     return (
         <>
             <div className="abrir-modal animacion fadeIn">
@@ -16,8 +20,6 @@ export const VistaUsuarioModal = ({usuarioSeleccionado,handlerAgregaUsuario,usua
                             <div className="modal-body">
                                 <VistaFormaUsuario
                                     usuarioSeleccionado={usuarioSeleccionado}
-                                    handlerAgregaUsuario={handlerAgregaUsuario}
-                                    usuarioFormaInicial={usuarioFormaInicial}
                                     handlerCierraForma={handlerCierraForma}
                                 />
                             </div>
@@ -27,11 +29,4 @@ export const VistaUsuarioModal = ({usuarioSeleccionado,handlerAgregaUsuario,usua
             </div>
         </>
     );
-}
-
-VistaUsuarioModal.propTypes = {
-    handlerAgregaUsuario: PropTypes.any.isRequired,
-    usuarioFormaInicial: PropTypes.object.isRequired,
-    usuarioSeleccionado: PropTypes.object.isRequired,
-    handlerCierraForma: PropTypes.any.isRequired,
 }

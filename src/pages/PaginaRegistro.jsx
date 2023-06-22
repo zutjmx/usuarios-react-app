@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
+import { useContext } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { VistaFormaUsuario } from '../components/VistaFormaUsuario';
+import { UsuarioContexto } from '../context/UsuarioContexto';
 
-export const PaginaRegistro = ({handlerAgregaUsuario, usuarioFormaInicial, usuarios=[]}) => {
+export const PaginaRegistro = () => {
+    const {usuarioFormaInicial, usuarios=[]} = useContext(UsuarioContexto);
     const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(usuarioFormaInicial);
     const {id} = useParams();
 
@@ -26,8 +29,6 @@ export const PaginaRegistro = ({handlerAgregaUsuario, usuarioFormaInicial, usuar
                         <div className="col">
                             <VistaFormaUsuario
                                 usuarioSeleccionado={usuarioSeleccionado}
-                                handlerAgregaUsuario={handlerAgregaUsuario}
-                                usuarioFormaInicial={usuarioFormaInicial}
                             />
                         </div>
                     </div>

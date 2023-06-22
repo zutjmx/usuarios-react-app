@@ -1,27 +1,21 @@
 import PropTypes from 'prop-types';
+import { useContext } from 'react';
 import { VistaListaUsuarios } from '../components/VistaListaUsuarios';
 import { VistaUsuarioModal } from '../components/VistaUsuarioModal';
+import { UsuarioContexto } from '../context/UsuarioContexto';
 
-export const PaginaUsuarios = ({usuarios, 
-                                usuarioFormaInicial, 
-                                usuarioSeleccionado, 
-                                formularioVisible,
-                                handlerAgregaUsuario, 
-                                handlerBorrarUsuario, 
-                                handlerUsuarioSeleccionadoForma, 
-                                handlerAbreForma, 
-                                handlerCierraForma}) => {
+export const PaginaUsuarios = () => {
 
+    const {usuarios, 
+        formularioVisible,
+        handlerBorrarUsuario, 
+        handlerUsuarioSeleccionadoForma, 
+        handlerAbreForma} = useContext(UsuarioContexto);
     
     return (
         <>
             {!formularioVisible || 
-                <VistaUsuarioModal 
-                    usuarioFormaInicial={usuarioFormaInicial}
-                    usuarioSeleccionado={usuarioSeleccionado}
-                    handlerAgregaUsuario={handlerAgregaUsuario}
-                    handlerCierraForma={handlerCierraForma}
-                />
+                <VistaUsuarioModal/>
             }
             <div className="card my-4 mx-4">
                 <h3 className="card-header">Bienvenido a Usuarios App</h3>
