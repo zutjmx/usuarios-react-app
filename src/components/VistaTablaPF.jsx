@@ -28,7 +28,10 @@ export const VistaTablaPF = () => {
                 <DataTable 
                     value={usuariosAux}
                     showGridlines
-                    stripedRows 
+                    stripedRows
+                    paginator 
+                    rows={5}
+                    rowsPerPageOptions={[5, 10, 25, 50]} 
                     tableStyle={{ minWidth: '50rem' }}
                 >
                     <Column field="id" header="Id" sortable ></Column>

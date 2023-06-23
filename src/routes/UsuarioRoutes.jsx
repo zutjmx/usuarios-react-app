@@ -6,6 +6,7 @@ import { PaginaRegistro } from '../pages/PaginaRegistro';
 import { VistaPrimeReact } from '../components/VistaPrimeReact';
 import { UsuarioProvider } from '../context/UsuarioProvider';
 import { VistaTablaPF } from '../components/VistaTablaPF';
+import { VistaGetPosts } from '../components/VistaGetPosts';
 
 export const UsuarioRoutes = ({ handlerLogout, login }) => {
     
@@ -20,6 +21,7 @@ export const UsuarioRoutes = ({ handlerLogout, login }) => {
                     <Route path="usuarios/edicion/:id" element={<PaginaRegistro/>} />
                     <Route path="usuarios/primereact" element={<VistaPrimeReact />} />
                     <Route path="usuarios/tablapf" element={<VistaTablaPF />} />
+                    <Route path="usuarios/posts" element={<VistaGetPosts />} />
                     <Route path="/" element={<Navigate to="usuarios" />} />
                 </Routes>
             </UsuarioProvider>
