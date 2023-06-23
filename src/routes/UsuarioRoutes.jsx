@@ -1,5 +1,4 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import PropTypes from 'prop-types';
 import { Navbar } from "../components/layout/Navbar";
 import { PaginaUsuarios } from '../pages/PaginaUsuarios';
 import { PaginaRegistro } from '../pages/PaginaRegistro';
@@ -7,9 +6,12 @@ import { VistaPrimeReact } from '../components/VistaPrimeReact';
 import { UsuarioProvider } from '../context/UsuarioProvider';
 import { VistaTablaPF } from '../components/VistaTablaPF';
 import { VistaGetPosts } from '../components/VistaGetPosts';
+import { AuthContexto } from '../auth/context/AuthContexto';
+import { useContext } from "react";
 
-export const UsuarioRoutes = ({ handlerLogout, login }) => {
+export const UsuarioRoutes = () => {
     
+    const { handlerLogout, login } = useContext(AuthContexto);
 
     return (
         <>
@@ -27,9 +29,4 @@ export const UsuarioRoutes = ({ handlerLogout, login }) => {
             </UsuarioProvider>
         </>
     );
-}
-
-UsuarioRoutes.propTypes = {
-    login: PropTypes.object.isRequired,
-    handlerLogout: PropTypes.any.isRequired,
 }

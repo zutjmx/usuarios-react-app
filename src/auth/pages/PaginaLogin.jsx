@@ -1,11 +1,14 @@
 import { useState } from "react";
 import Swal from 'sweetalert2';
-import PropTypes from 'prop-types';
 import { getUsuarioLoginInicial } from '../../services/servicioUsuarios';
+import { AuthContexto } from '../context/AuthContexto';
+import { useContext } from "react";
 
 const formaLoginInicial = getUsuarioLoginInicial();
 
-export const PaginaLogin = ({handlerLogin}) => {
+export const PaginaLogin = () => {
+
+    const {handlerLogin} = useContext(AuthContexto);
 
     const tituloMensajes = 'Login';
     const [formaLogin, setFormaLogin] = useState(formaLoginInicial);
@@ -78,8 +81,4 @@ export const PaginaLogin = ({handlerLogin}) => {
             </div>
         </>
     );
-}
-
-PaginaLogin.propTypes = {
-    handlerLogin: PropTypes.any.isRequired
 }
