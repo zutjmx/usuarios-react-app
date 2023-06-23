@@ -6,17 +6,13 @@ import { VistaPrimeReact } from '../components/VistaPrimeReact';
 import { UsuarioProvider } from '../context/UsuarioProvider';
 import { VistaTablaPF } from '../components/VistaTablaPF';
 import { VistaGetPosts } from '../components/VistaGetPosts';
-import { AuthContexto } from '../auth/context/AuthContexto';
-import { useContext } from "react";
 
 export const UsuarioRoutes = () => {
-    
-    const { handlerLogout, login } = useContext(AuthContexto);
 
     return (
         <>
             <UsuarioProvider>
-                <Navbar handlerLogout={handlerLogout} login={login} />
+                <Navbar />
                 <Routes>
                     <Route path="usuarios" element={<PaginaUsuarios/>} />
                     <Route path="usuarios/registro" element={<PaginaRegistro/>} />

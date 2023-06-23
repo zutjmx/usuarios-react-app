@@ -1,7 +1,11 @@
-import PropTypes from 'prop-types';
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import { AuthContexto } from '../../auth/context/AuthContexto';
 
-export const Navbar = ({ login, handlerLogout }) => {
+export const Navbar = () => {
+
+    const { handlerLogout, login } = useContext(AuthContexto);
+
     return (
         <>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -41,9 +45,4 @@ export const Navbar = ({ login, handlerLogout }) => {
             </nav>
         </>
     );
-}
-
-Navbar.propTypes = {
-    handlerLogout: PropTypes.any.isRequired,
-    login: PropTypes.object.isRequired,
 }
