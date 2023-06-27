@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useContext } from 'react';
 import { VistaListaUsuarios } from '../components/VistaListaUsuarios';
 import { VistaUsuarioModal } from '../components/VistaUsuarioModal';
@@ -7,7 +8,13 @@ export const PaginaUsuarios = () => {
 
     const {usuarios, 
         formularioVisible,
-        handlerAbreForma} = useContext(UsuarioContexto);
+        handlerAbreForma,
+        obtenerUsuarios
+    } = useContext(UsuarioContexto);
+
+    useEffect(() => {
+        obtenerUsuarios();
+    },[obtenerUsuarios]);
     
     return (
         <>

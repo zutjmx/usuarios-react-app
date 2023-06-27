@@ -1,5 +1,7 @@
 export const usuariosReducer = (state = [], action) => {
     switch (action.type) {
+        case 'cargandoUsuarios':
+            return action.payload;
         case 'agregarUsuario':
             return [
                 ...state,
