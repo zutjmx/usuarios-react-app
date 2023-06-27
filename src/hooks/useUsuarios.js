@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { usuariosReducer } from "../reducers/usuariosReducer";
 import { getUsuarioInicial/* , getUsuarios */ } from "../services/servicioUsuarios";
-import { listarUsuarios } from "../services/usuarioService";
+import { actualizar, borrar, guardar, listarUsuarios } from "../services/usuarioService";
 
 const usuariosIniciales = [];
 const usuarioFormaInicial = getUsuarioInicial();
@@ -28,24 +28,27 @@ export const useUsuarios = () => {
         setFormularioVisible(true);
     }
 
-    const handlerAgregaUsuario = (usuario) => {
+    const handlerAgregaUsuario = async (usuario) => {
         let type;
         let titulo = '';
         let mensaje = '';
+        let respuesta;
 
         if(usuario.id === 0) {
             titulo = 'Usuario Creado';
             type = 'agregarUsuario';
             mensaje = 'Se agregó el usuario';
+            respuesta = await guardar(usuario);
         } else {
             titulo = 'Usuario Actualizado';
             type = 'actualizarUsuario';
             mensaje = 'Se actualizó el usuario';
+            respuesta = await actualizar(usuario);
         }
 
         dispatch({
             type,
-            payload: usuario,
+            payload: respuesta.data,
         });
 
         Swal.fire(
@@ -68,6 +71,7 @@ export const useUsuarios = () => {
             denyButtonText: `No Borrar`,
         }).then((result) => {
             if (result.isConfirmed) {
+                borrar(id);
                 dispatch({
                     type: 'borrarUsuario',
                     payload: id,

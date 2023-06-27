@@ -7,7 +7,7 @@ export const usuariosReducer = (state = [], action) => {
                 ...state,
                 {
                     ...action.payload,
-                    id: new Date().getTime(),
+                    /* id: new Date().getTime(), */
                 }
             ];
         case 'actualizarUsuario':
