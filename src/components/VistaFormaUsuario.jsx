@@ -7,7 +7,7 @@ import { validaEmail } from '../services/servicioUsuarios';
 import { UsuarioContexto } from '../context/UsuarioContexto';
 
 export const VistaFormaUsuario = ({ usuarioSeleccionado, handlerCierraForma }) => {
-    const {handlerAgregaUsuario, usuarioFormaInicial, } = useContext(UsuarioContexto);
+    const {handlerAgregaUsuario, usuarioFormaInicial, errores } = useContext(UsuarioContexto);
     const [formaUsuario, setFormaUsuario] = useState(usuarioFormaInicial);
     const { id, username, email, password } = formaUsuario;
     const tituloMensajes = 'Formulario de Usuario';
@@ -55,7 +55,7 @@ export const VistaFormaUsuario = ({ usuarioSeleccionado, handlerCierraForma }) =
             return;
         }
         handlerAgregaUsuario(formaUsuario);
-        setFormaUsuario(usuarioFormaInicial);
+        //setFormaUsuario(usuarioFormaInicial);
     }
 
     useEffect(() => {
@@ -84,6 +84,7 @@ export const VistaFormaUsuario = ({ usuarioSeleccionado, handlerCierraForma }) =
                                 placeholder="Usuario"
                                 onChange={onInputChange}
                             />
+                            <p className="text-danger">{errores?.username}</p>
                         </div>
                         <div className="mb-3">
                             <input type="email"
@@ -94,6 +95,7 @@ export const VistaFormaUsuario = ({ usuarioSeleccionado, handlerCierraForma }) =
                                 placeholder="Email"
                                 onChange={onInputChange}
                             />
+                            <p className="text-danger">{errores?.email}</p>
                         </div>
                         {id > 0 ||
                             <div className="mb-3">
@@ -107,6 +109,7 @@ export const VistaFormaUsuario = ({ usuarioSeleccionado, handlerCierraForma }) =
                                 />
                             </div>
                         }
+                        <p className="text-danger">{errores?.password}</p>
                         <input type="hidden" name="id" value={id} />
                         <button type="submit" className="btn btn-primary">
                             {id > 0 ? 'Actualizar' : 'Agregar'}

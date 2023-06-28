@@ -8,6 +8,15 @@ export const getUsuarioInicial = () => {
     return generaUsuarioVacio();
 }
 
+export const getErrorInicial = () => {
+	const errorInicial = {
+		username: '',
+		email: '',
+		password: '',
+	}
+	return errorInicial;
+}
+
 export const getUsuarioLoginInicial = () => {
     return generaUsuarioLoginVacio();
 }

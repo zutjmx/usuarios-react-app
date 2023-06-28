@@ -14,7 +14,8 @@ export const UsuarioProvider = ({children}) => {
         handlerUsuarioSeleccionadoForma,
         handlerAbreForma,
         handlerCierraForma,
-        obtenerUsuarios
+        obtenerUsuarios,
+        errores
     } = useUsuarios();
 
     return (
@@ -31,7 +32,8 @@ export const UsuarioProvider = ({children}) => {
                         handlerUsuarioSeleccionadoForma,
                         handlerAbreForma,
                         handlerCierraForma,
-                        obtenerUsuarios
+                        obtenerUsuarios,
+                        errores
                     }
             }
             >

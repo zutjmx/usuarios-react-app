@@ -14,6 +14,7 @@ export const listarUsuarios = async () => {
 }
 
 export const guardar = async ({username, email, password}) => {
+    // eslint-disable-next-line no-useless-catch
     try {
         return await axios.post(BASE_URL.concat('/crear'),
             {
@@ -23,12 +24,12 @@ export const guardar = async ({username, email, password}) => {
             }
         );
     } catch (error) {
-        console.error('error en guardar: ', error);
+        throw error;
     }
-    return undefined;
 }
 
 export const actualizar = async ({id, username, email}) => {
+    // eslint-disable-next-line no-useless-catch
     try {
         return await axios.put(`${BASE_URL}/modificar/${id}`,
             {
@@ -37,9 +38,8 @@ export const actualizar = async ({id, username, email}) => {
             }
         );
     } catch (error) {
-        console.error('error en actualizar: ', error);
+        throw error;
     }
-    return undefined;
 }
 
 export const borrar = async (id) => {

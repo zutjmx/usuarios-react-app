@@ -2,16 +2,18 @@ import { useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { usuariosReducer } from "../reducers/usuariosReducer";
-import { getUsuarioInicial/* , getUsuarios */ } from "../services/servicioUsuarios";
+import { getUsuarioInicial/* , getUsuarios */, getErrorInicial } from "../services/servicioUsuarios";
 import { actualizar, borrar, guardar, listarUsuarios } from "../services/usuarioService";
 
 const usuariosIniciales = [];
 const usuarioFormaInicial = getUsuarioInicial();
+const errorInicial = getErrorInicial();
 
 export const useUsuarios = () => {
     const [usuarios, dispatch] = useReducer(usuariosReducer, usuariosIniciales);
     const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(usuarioFormaInicial);
     const [formularioVisible, setFormularioVisible] = useState(false);
+    const [errores, setErrores] = useState(errorInicial);
     const navigate = useNavigate();
 
     const obtenerUsuarios = async () => {
@@ -34,31 +36,41 @@ export const useUsuarios = () => {
         let mensaje = '';
         let respuesta;
 
-        if(usuario.id === 0) {
-            titulo = 'Usuario Creado';
-            type = 'agregarUsuario';
-            mensaje = 'Se agregó el usuario';
-            respuesta = await guardar(usuario);
-        } else {
-            titulo = 'Usuario Actualizado';
-            type = 'actualizarUsuario';
-            mensaje = 'Se actualizó el usuario';
-            respuesta = await actualizar(usuario);
+        try {
+            if(usuario.id === 0) {
+                titulo = 'Usuario Creado';
+                type = 'agregarUsuario';
+                mensaje = 'Se agregó el usuario';
+                respuesta = await guardar(usuario);
+            } else {
+                titulo = 'Usuario Actualizado';
+                type = 'actualizarUsuario';
+                mensaje = 'Se actualizó el usuario';
+                respuesta = await actualizar(usuario);
+            }
+    
+            dispatch({
+                type,
+                payload: respuesta.data,
+            });
+    
+            Swal.fire(
+                titulo,
+                mensaje,
+                'success'
+            );
+    
+            handlerCierraForma();
+            navigate('/usuarios');
+        } catch (error) {            
+            if (error.response && error.response.status == 400) {
+                setErrores(error.response.data);
+                //console.error(error.response.data);
+            } else {
+                throw error;
+            }
         }
 
-        dispatch({
-            type,
-            payload: respuesta.data,
-        });
-
-        Swal.fire(
-            titulo,
-            mensaje,
-            'success'
-        );
-
-        handlerCierraForma();
-        navigate('/usuarios');
     }
 
     const handlerBorrarUsuario = (id) => {
@@ -90,6 +102,7 @@ export const useUsuarios = () => {
     const handlerCierraForma = () => {
         setFormularioVisible(false);
         setUsuarioSeleccionado(usuarioFormaInicial);
+        setErrores(errorInicial);
     }
 
     return {
@@ -102,6 +115,7 @@ export const useUsuarios = () => {
         handlerUsuarioSeleccionadoForma,
         handlerAbreForma,
         handlerCierraForma,
-        obtenerUsuarios
+        obtenerUsuarios,
+        errores
     }
 }
