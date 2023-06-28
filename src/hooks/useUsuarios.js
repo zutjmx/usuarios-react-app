@@ -66,7 +66,11 @@ export const useUsuarios = () => {
             if (error.response && error.response.status == 400) {
                 setErrores(error.response.data);
                 //console.error(error.response.data);
+            } else if (error.response && error.response.status == 500) {
+                //console.log("Error en la petición");
+                setErrores({username: error.response.data.error, email:error.response.data.error});
             } else {
+                setErrores({errorGeneral: error.response.data.error});
                 throw error;
             }
         }
