@@ -57,5 +57,5 @@ VistaRenglonUsuario.propTypes = {
     id: PropTypes.number.isRequired,
     username: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
+    password: PropTypes.string,
 }

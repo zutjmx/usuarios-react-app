@@ -13,22 +13,24 @@ export const useAuth = () => {
     const [login, dispatch] = useReducer(loginReducer, logiInicial);
     const navigate = useNavigate();
 
-    const handlerLogin = ({username, password}) => {
-        const isLogin = loginUser({username, password});        
-        if(isLogin) {
-            const user = {username: 'zutjmx'};
+    const handlerLogin = async ({username, password}) => {
+        try {
+            const respuestaLogin = await loginUser({username, password});
+            const token = respuestaLogin.data.token;
+            const user = {username: respuestaLogin.data.username};
             dispatch({
                 type: 'login',
                 payload: user,
             });
             sessionStorage.setItem('login',JSON.stringify({isAuth: true, user: user}));
+            sessionStorage.setItem('token',token); //temporal
             Swal.fire(
                 tituloMensajes,
                 'Login exitoso',
                 'success'
             );
             navigate('/usuarios');
-        } else {
+        } catch(error) {
             Swal.fire(
                 tituloMensajes,
                 'Login inválido',
