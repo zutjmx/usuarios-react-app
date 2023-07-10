@@ -24,6 +24,7 @@ export const getUsuarioLoginInicial = () => {
 export const getLoginInicial = () => {
 	const loginInicial = {
 		isAuth: false,
+		isAdmin: false,
 		user: undefined,
 	}
 	return loginInicial;

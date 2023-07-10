@@ -17,13 +17,19 @@ export const useAuth = () => {
         try {
             const respuestaLogin = await loginUser({username, password});
             const token = respuestaLogin.data.token;
-            const user = {username: respuestaLogin.data.username};
+            const claims = JSON.parse(window.atob(token.split('.')[1]));
+            console.log(claims);
+            const user = {username: claims.username};
             dispatch({
                 type: 'login',
-                payload: user,
+                payload: {user, isAdmin: claims.isAdmin},
             });
-            sessionStorage.setItem('login',JSON.stringify({isAuth: true, user: user}));
-            sessionStorage.setItem('token',token); //temporal
+            sessionStorage.setItem('login',JSON.stringify({
+                isAuth: true, 
+                isAdmin: claims.isAdmin, 
+                user: user
+            }));
+            sessionStorage.setItem('token',`Bearer ${token}`);
             Swal.fire(
                 tituloMensajes,
                 'Login exitoso',
@@ -31,11 +37,21 @@ export const useAuth = () => {
             );
             navigate('/usuarios');
         } catch(error) {
-            Swal.fire(
-                tituloMensajes,
-                'Login inválido',
-                'error'
-            );
+            if(error.response?.status == 401) {
+                Swal.fire(
+                    tituloMensajes,
+                    'Login inválido',
+                    'error'
+                );
+            } else if (error.response?.status == 403) {
+                Swal.fire(
+                    tituloMensajes,
+                    'No tiene permisos',
+                    'error'
+                );
+            } else {
+                throw error;
+            }            
         }
     }
 
@@ -53,6 +69,8 @@ export const useAuth = () => {
                     type: 'logout',            
                 });
                 sessionStorage.removeItem('login');
+                sessionStorage.removeItem('token');
+                sessionStorage.clear();
                 Swal.fire('Se cerró sesión', '', 'success')
             } else if (result.isDenied) {
                 Swal.fire('Se permanece en la sesión', '', 'info')
