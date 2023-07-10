@@ -2,6 +2,13 @@ import axios from 'axios';
 
 const BASE_URL = 'http://192.168.1.136:8080/api/v1/usuarios';
 
+const config = {
+    headers : {
+        'Authorization': sessionStorage.getItem('token'),
+        'Content-Type': 'application/json',
+    }
+}
+
 export const listarUsuarios = async () => {    
     try {
         const respuesta = await axios.get(BASE_URL.concat('/listar'));
@@ -21,7 +28,7 @@ export const guardar = async ({username, email, password}) => {
                 username, 
                 email, 
                 password
-            }
+            }, config
         );
     } catch (error) {
         throw error;
@@ -35,7 +42,7 @@ export const actualizar = async ({id, username, email}) => {
             {
                 username, 
                 email
-            }
+            }, config
         );
     } catch (error) {
         throw error;
@@ -44,7 +51,7 @@ export const actualizar = async ({id, username, email}) => {
 
 export const borrar = async (id) => {
     try {
-        await axios.delete(`${BASE_URL}/borrar/${id}`);
+        await axios.delete(`${BASE_URL}/borrar/${id}`, config);
     } catch (error) {
         console.error('error en borrar: ', error);
     }
