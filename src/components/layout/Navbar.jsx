@@ -19,9 +19,11 @@ export const Navbar = () => {
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/usuarios">Usuarios</NavLink>
                             </li>
-                            <li className="nav-item">
-                                <NavLink className="nav-link" to="/usuarios/registro">Registrar Usuario</NavLink>
-                            </li>
+                            {!login.isAdmin ||
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/usuarios/registro">Registrar Usuario</NavLink>
+                                </li>
+                            }                            
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/usuarios/primereact">Componentes Primereact</NavLink>
                             </li>

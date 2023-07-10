@@ -1,10 +1,12 @@
 import { useContext } from 'react';
 import { VistaRenglonUsuario } from './VistaRenglonUsuario';
 import { UsuarioContexto } from '../context/UsuarioContexto';
+import { AuthContexto } from '../auth/context/AuthContexto';
 
 export const VistaListaUsuarios = () => {
 
     const {usuarios} = useContext(UsuarioContexto);
+    const {login} = useContext(AuthContexto);
     
     return (
         <>
@@ -17,9 +19,14 @@ export const VistaListaUsuarios = () => {
                                 <th>Id</th>
                                 <th>Usuario</th>
                                 <th>Email</th>
-                                <th>Editar</th>
-                                <th>Editar con Ruta</th>
-                                <th>Eliminar</th>
+                                {!login.isAdmin || 
+                                    <>
+                                        <th>Editar</th>
+                                        <th>Editar con Ruta</th>
+                                        <th>Eliminar</th>
+                                    </>
+                                }
+                                
                             </tr>
                         </thead>
                         <tbody>

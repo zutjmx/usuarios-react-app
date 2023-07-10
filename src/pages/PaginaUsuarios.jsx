@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { VistaListaUsuarios } from '../components/VistaListaUsuarios';
 import { VistaUsuarioModal } from '../components/VistaUsuarioModal';
 import { UsuarioContexto } from '../context/UsuarioContexto';
+import { AuthContexto } from '../auth/context/AuthContexto';
 
 export const PaginaUsuarios = () => {
 
@@ -11,6 +12,8 @@ export const PaginaUsuarios = () => {
         handlerAbreForma,
         obtenerUsuarios
     } = useContext(UsuarioContexto);
+
+    const {login} = useContext(AuthContexto);
 
     useEffect(() => {
         obtenerUsuarios();
@@ -28,7 +31,7 @@ export const PaginaUsuarios = () => {
                     <p className="card-text">zutjmx@gmail.com</p>
                     <div className="row">                        
                         <div className="col">
-                            {formularioVisible || 
+                            {(formularioVisible || !login.isAdmin) || 
                                 <button 
                                     className="btn btn-primary my-2" 
                                     onClick={handlerAbreForma}
