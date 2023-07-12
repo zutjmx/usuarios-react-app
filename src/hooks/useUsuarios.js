@@ -1,9 +1,10 @@
-import { useReducer, useState } from "react";
+import { useContext, useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { usuariosReducer } from "../reducers/usuariosReducer";
 import { getUsuarioInicial/* , getUsuarios */, getErrorInicial } from "../services/servicioUsuarios";
 import { actualizar, borrar, guardar, listarUsuarios } from "../services/usuarioService";
+import { AuthContexto } from '../auth/context/AuthContexto';
 
 const usuariosIniciales = [];
 const usuarioFormaInicial = getUsuarioInicial();
@@ -15,6 +16,7 @@ export const useUsuarios = () => {
     const [formularioVisible, setFormularioVisible] = useState(false);
     const [errores, setErrores] = useState(errorInicial);
     const navigate = useNavigate();
+    const {login} = useContext(AuthContexto);
 
     const obtenerUsuarios = async () => {
         const resultado = await listarUsuarios();
@@ -35,6 +37,10 @@ export const useUsuarios = () => {
         let titulo = '';
         let mensaje = '';
         let respuesta;
+
+        if(!login.isAdmin) {
+            return;
+        }
 
         try {
             if(usuario.id === 0) {
@@ -78,6 +84,11 @@ export const useUsuarios = () => {
     }
 
     const handlerBorrarUsuario = (id) => {
+        
+        if(!login.isAdmin) {
+            return;
+        }
+
         Swal.fire({
             title: `¿Quiere borrar el usuario con ID: ${id}?`,
             text: 'El borrado no podrá revertirse.',

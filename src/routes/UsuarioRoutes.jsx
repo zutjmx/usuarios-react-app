@@ -6,8 +6,12 @@ import { VistaPrimeReact } from '../components/VistaPrimeReact';
 import { UsuarioProvider } from '../context/UsuarioProvider';
 import { VistaTablaPF } from '../components/VistaTablaPF';
 import { VistaGetPosts } from '../components/VistaGetPosts';
+import { AuthContexto } from '../auth/context/AuthContexto';
+import { useContext } from "react";
 
 export const UsuarioRoutes = () => {
+
+    const {login} = useContext(AuthContexto);
 
     return (
         <>
@@ -15,8 +19,12 @@ export const UsuarioRoutes = () => {
                 <Navbar />
                 <Routes>
                     <Route path="usuarios" element={<PaginaUsuarios/>} />
-                    <Route path="usuarios/registro" element={<PaginaRegistro/>} />
-                    <Route path="usuarios/edicion/:id" element={<PaginaRegistro/>} />
+                    {!login.isAdmin || 
+                        <>
+                            <Route path="usuarios/registro" element={<PaginaRegistro/>} />
+                            <Route path="usuarios/edicion/:id" element={<PaginaRegistro/>} />
+                        </>
+                    }                    
                     <Route path="usuarios/primereact" element={<VistaPrimeReact />} />
                     <Route path="usuarios/tablapf" element={<VistaTablaPF />} />
                     <Route path="usuarios/posts" element={<VistaGetPosts />} />
