@@ -100,9 +100,9 @@ export const useUsuarios = () => {
                 showDenyButton: true,
                 confirmButtonText: 'Borrar',
                 denyButtonText: `No Borrar`,
-            }).then((result) => {
+            }).then(async (result) => {
                 if (result.isConfirmed) {
-                    borrar(id);
+                    await borrar(id);
                     dispatch({
                         type: 'borrarUsuario',
                         payload: id,

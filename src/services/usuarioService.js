@@ -32,6 +32,7 @@ export const guardar = async ({username, email, password}) => {
             }, config()
         );
     } catch (error) {
+        console.error('error en guardar: ', error);
         throw error;
     }
 }
@@ -46,6 +47,7 @@ export const actualizar = async ({id, username, email}) => {
             }, config()
         );
     } catch (error) {
+        console.error('error en actualizar: ', error);
         throw error;
     }
 }
@@ -55,6 +57,7 @@ export const borrar = async (id) => {
         await axios.delete(`${BASE_URL}/borrar/${id}`, config());
     } catch (error) {
         console.error('error en borrar: ', error);
+        throw error;
     }
     return undefined;
 }
