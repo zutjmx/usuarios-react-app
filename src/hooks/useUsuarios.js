@@ -16,7 +16,7 @@ export const useUsuarios = () => {
     const [formularioVisible, setFormularioVisible] = useState(false);
     const [errores, setErrores] = useState(errorInicial);
     const navigate = useNavigate();
-    const {login} = useContext(AuthContexto);
+    const {login, handlerLogout} = useContext(AuthContexto);
 
     const obtenerUsuarios = async () => {
         const resultado = await listarUsuarios();
@@ -75,6 +75,9 @@ export const useUsuarios = () => {
             } else if (error.response && error.response.status == 500) {
                 //console.log("Error en la petición");
                 setErrores({username: error.response.data.error, email:error.response.data.error});
+            } else if (error.response && error.response.status == 401) {
+                console.warn('Sesion expirada');
+                handlerLogout();
             } else {
                 setErrores({errorGeneral: error.response.data.error});
                 throw error;
@@ -89,25 +92,33 @@ export const useUsuarios = () => {
             return;
         }
 
-        Swal.fire({
-            title: `¿Quiere borrar el usuario con ID: ${id}?`,
-            text: 'El borrado no podrá revertirse.',
-            icon: 'warning',
-            showDenyButton: true,
-            confirmButtonText: 'Borrar',
-            denyButtonText: `No Borrar`,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                borrar(id);
-                dispatch({
-                    type: 'borrarUsuario',
-                    payload: id,
-                });
-                Swal.fire('Borrado', '', 'success')
-            } else if (result.isDenied) {
-                Swal.fire('No se borró', '', 'info')
+        try {
+            Swal.fire({
+                title: `¿Quiere borrar el usuario con ID: ${id}?`,
+                text: 'El borrado no podrá revertirse.',
+                icon: 'warning',
+                showDenyButton: true,
+                confirmButtonText: 'Borrar',
+                denyButtonText: `No Borrar`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    borrar(id);
+                    dispatch({
+                        type: 'borrarUsuario',
+                        payload: id,
+                    });
+                    Swal.fire('Borrado', '', 'success')
+                } else if (result.isDenied) {
+                    Swal.fire('No se borró', '', 'info')
+                }
+            })
+        } catch (error) {
+            if (error.response && error.response.status == 401) {
+                console.warn('Sesion expirada');
+                handlerLogout();
             }
-        })
+        }
+
     }
 
     const handlerAbreForma = () => {
