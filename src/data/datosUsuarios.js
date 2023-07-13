@@ -2,8 +2,8 @@ import { faker } from '@faker-js/faker/locale/es_MX';
 
 const generaArrNumerico = () => {
     let numeros = [];
-    //Se llena un arreglo de núemros
-    for (let index = 0; index < 8; index++) {
+    //Se llena un arreglo de números
+    for (let index = 0; index < 30; index++) {
         const numero = faker.number.int({min:100,max:200});
         numeros.push(numero);
     }
@@ -12,6 +12,22 @@ const generaArrNumerico = () => {
         return numeros.indexOf(item) === index;
     });
     return resultado;
+}
+
+export const generaDatos = () => {
+    console.log('Generando datos...');
+    let datos = [];
+    const numerosIds = generaArrNumerico();
+    for (let index = 0; index < numerosIds.length; index++) {
+        const dato = {
+            //empresa: faker.company.name(),
+            ventas: faker.number.float({min:1000,max:10000}),
+            ingresos: faker.number.float({min:1000,max:10000}),
+            //year: faker.date.recent({days:5})
+        }
+        datos.push(dato);
+    }
+    return datos;
 }
 
 export const generaArregloUsuarios = () => {

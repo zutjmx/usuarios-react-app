@@ -33,6 +33,9 @@ export const Navbar = () => {
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/usuarios/posts">Lista de Posts</NavLink>
                             </li>
+                            {/* <li className="nav-item">
+                                <NavLink className="nav-link" to="/usuarios/grafica">Gráfica</NavLink>
+                            </li> */}
                         </ul>
                     </div>
                     <div className="collapse navbar-collapse justify-content-end" id="navbarNavLogout">

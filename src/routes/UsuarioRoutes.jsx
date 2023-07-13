@@ -6,6 +6,7 @@ import { VistaPrimeReact } from '../components/VistaPrimeReact';
 import { UsuarioProvider } from '../context/UsuarioProvider';
 import { VistaTablaPF } from '../components/VistaTablaPF';
 import { VistaGetPosts } from '../components/VistaGetPosts';
+import { LinePlot } from '../components/LinePlot';
 import { AuthContexto } from '../auth/context/AuthContexto';
 import { useContext } from "react";
 
@@ -28,6 +29,7 @@ export const UsuarioRoutes = () => {
                     <Route path="usuarios/primereact" element={<VistaPrimeReact />} />
                     <Route path="usuarios/tablapf" element={<VistaTablaPF />} />
                     <Route path="usuarios/posts" element={<VistaGetPosts />} />
+                    <Route path="usuarios/grafica" element={<LinePlot />} />
                     <Route path="/" element={<Navigate to="usuarios" />} />
                 </Routes>
             </UsuarioProvider>
