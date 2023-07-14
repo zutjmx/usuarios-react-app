@@ -125,6 +125,7 @@ export const VistaFormaUsuario = ({ usuarioSeleccionado, handlerCierraForma }) =
                                 className="form-check-input"
                                 onChange={onCheckboxChange}
                             />
+                            <label className="form-check-label">Es Admin</label>
                         </div>
                         <p className="text-danger">{errores?.password}</p>
                         <input type="hidden" name="id" value={id} />
