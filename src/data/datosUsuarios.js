@@ -15,7 +15,6 @@ const generaArrNumerico = () => {
 }
 
 export const generaDatos = () => {
-    console.log('Generando datos...');
     let datos = [];
     const numerosIds = generaArrNumerico();
     for (let index = 0; index < numerosIds.length; index++) {
