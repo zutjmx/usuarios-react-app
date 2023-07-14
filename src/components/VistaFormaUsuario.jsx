@@ -47,7 +47,7 @@ export const VistaFormaUsuario = ({ usuarioSeleccionado, handlerCierraForma }) =
             );
             return;
         }
-        if (!password) {
+        if (id <= 0 && !password) {
             Swal.fire(
                 tituloMensajes,
                 'Se requiere la contraseña',
@@ -55,8 +55,7 @@ export const VistaFormaUsuario = ({ usuarioSeleccionado, handlerCierraForma }) =
             );
             return;
         }
-        handlerAgregaUsuario(formaUsuario);
-        //setFormaUsuario(usuarioFormaInicial);
+        handlerAgregaUsuario(formaUsuario);        
     }
 
     useEffect(() => {
