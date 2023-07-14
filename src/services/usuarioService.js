@@ -21,14 +21,15 @@ export const listarUsuarios = async () => {
     return null;
 }
 
-export const guardar = async ({username, email, password}) => {
+export const guardar = async ({username, email, password, admin}) => {
     // eslint-disable-next-line no-useless-catch
     try {
         return await axios.post(BASE_URL.concat('/crear'),
             {
                 username, 
                 email, 
-                password
+                password,
+                admin
             }, config()
         );
     } catch (error) {
@@ -37,13 +38,14 @@ export const guardar = async ({username, email, password}) => {
     }
 }
 
-export const actualizar = async ({id, username, email}) => {
+export const actualizar = async ({id, username, email, admin}) => {
     // eslint-disable-next-line no-useless-catch
     try {
         return await axios.put(`${BASE_URL}/modificar/${id}`,
             {
                 username, 
-                email
+                email,
+                admin
             }, config()
         );
     } catch (error) {

@@ -31,12 +31,13 @@ export const VistaListaUsuarios = () => {
                         </thead>
                         <tbody>
                             {
-                                usuarios.map(({id, username, email, password}) => (
+                                usuarios.map(({id, username, email, password, admin}) => (
                                     <VistaRenglonUsuario key={id}
                                                          id={id} 
                                                          username={username}
                                                          email={email}
                                                          password={password}
+                                                         admin={admin}
                                     />
                                 ))
                             }

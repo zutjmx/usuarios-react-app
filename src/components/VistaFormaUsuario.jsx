@@ -9,7 +9,8 @@ import { UsuarioContexto } from '../context/UsuarioContexto';
 export const VistaFormaUsuario = ({ usuarioSeleccionado, handlerCierraForma }) => {
     const {handlerAgregaUsuario, usuarioFormaInicial, errores } = useContext(UsuarioContexto);
     const [formaUsuario, setFormaUsuario] = useState(usuarioFormaInicial);
-    const { id, username, email, password } = formaUsuario;
+    const [checked, setChecked] = useState(formaUsuario.admin);
+    const { id, username, email, password, admin } = formaUsuario;
     const tituloMensajes = 'Formulario de Usuario';
 
     const onInputChange = ({ target }) => {
@@ -69,6 +70,14 @@ export const VistaFormaUsuario = ({ usuarioSeleccionado, handlerCierraForma }) =
         setFormaUsuario(usuarioFormaInicial);
     }
 
+    const onCheckboxChange = () => {
+        setChecked(!checked);
+        setFormaUsuario({
+            ...formaUsuario,
+            admin: checked,
+        });
+    }
+
     return (
         <>
             <div className="card my-3">
@@ -109,6 +118,15 @@ export const VistaFormaUsuario = ({ usuarioSeleccionado, handlerCierraForma }) =
                                 />
                             </div>
                         }
+                        <div className="mb-3 form-check">
+                            <input 
+                                type="checkbox" 
+                                name="admin" 
+                                checked={admin}
+                                className="form-check-input"
+                                onChange={onCheckboxChange}
+                            />
+                        </div>
                         <p className="text-danger">{errores?.password}</p>
                         <input type="hidden" name="id" value={id} />
                         <button type="submit" className="btn btn-primary">

@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { UsuarioContexto } from '../context/UsuarioContexto';
 import { AuthContexto } from '../auth/context/AuthContexto';
 
-export const VistaRenglonUsuario = ({ id, username, email, password }) => {
+export const VistaRenglonUsuario = ({ id, username, email, password, admin }) => {
 
     const { handlerBorrarUsuario, handlerUsuarioSeleccionadoForma } = useContext(UsuarioContexto);
     const { login } = useContext(AuthContexto);
@@ -30,7 +30,8 @@ export const VistaRenglonUsuario = ({ id, username, email, password }) => {
                                         id,
                                         username,
                                         email,
-                                        password
+                                        password,
+                                        admin
                                     }
                                 )}
                             >
@@ -64,4 +65,5 @@ VistaRenglonUsuario.propTypes = {
     username: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     password: PropTypes.string,
+    admin: PropTypes.bool
 }

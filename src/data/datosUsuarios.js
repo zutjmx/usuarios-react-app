@@ -51,6 +51,7 @@ export const generaUsuarioVacio = () => {
         username: '',
         password: '',
         email: '',
+        admin: false
     }
     return usuario;
 }
