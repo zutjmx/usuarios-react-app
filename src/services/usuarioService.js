@@ -1,36 +1,27 @@
-import axios from 'axios';
+import usuariosApi from '../api/usuariosApi';
 
-const BASE_URL = 'http://192.168.1.136:8080/api/v1/usuarios';
-
-const config = () => {
-    return {
-        headers : {
-            'Authorization': sessionStorage.getItem('token'),
-            'Content-Type': 'application/json',
-        }
-    }
-} 
+const BASE_URL = '';
 
 export const listarUsuarios = async () => {    
     try {
-        const respuesta = await axios.get(BASE_URL.concat('/listar'));        
+        const respuesta = await usuariosApi.get(BASE_URL.concat('/listar'));        
         return respuesta;
     } catch (error) {
         console.error('error en listarUsuarios: ', error);
+        throw error;
     }
-    return null;
 }
 
 export const guardar = async ({username, email, password, admin}) => {
     // eslint-disable-next-line no-useless-catch
     try {
-        return await axios.post(BASE_URL.concat('/crear'),
+        return await usuariosApi.post(BASE_URL.concat('/crear'),
             {
                 username, 
                 email, 
                 password,
                 admin
-            }, config()
+            }
         );
     } catch (error) {
         console.error('error en guardar: ', error);
@@ -41,12 +32,12 @@ export const guardar = async ({username, email, password, admin}) => {
 export const actualizar = async ({id, username, email, admin}) => {
     // eslint-disable-next-line no-useless-catch
     try {
-        return await axios.put(`${BASE_URL}/modificar/${id}`,
+        return await usuariosApi.put(`${BASE_URL}/modificar/${id}`,
             {
                 username, 
                 email,
                 admin
-            }, config()
+            }
         );
     } catch (error) {
         console.error('error en actualizar: ', error);
@@ -56,7 +47,7 @@ export const actualizar = async ({id, username, email, admin}) => {
 
 export const borrar = async (id) => {
     try {
-        await axios.delete(`${BASE_URL}/borrar/${id}`, config());
+        await usuariosApi.delete(`${BASE_URL}/borrar/${id}`);
     } catch (error) {
         console.error('error en borrar: ', error);
         throw error;

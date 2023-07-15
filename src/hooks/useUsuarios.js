@@ -18,13 +18,19 @@ export const useUsuarios = () => {
     const navigate = useNavigate();
     const {login, handlerLogout} = useContext(AuthContexto);
 
-    const obtenerUsuarios = async () => {
-        const resultado = await listarUsuarios();
-        //console.log('resultado: ', resultado);
-        dispatch({
-            type: 'cargandoUsuarios',
-            payload: resultado.data,
-        });
+    const obtenerUsuarios = async () => {        
+        try {
+            const resultado = await listarUsuarios();
+            dispatch({
+                type: 'cargandoUsuarios',
+                payload: resultado.data,
+            });    
+        } catch (error) {
+            if (error.response && error.response.status == 401) {
+                console.warn('Sesion expirada');
+                handlerLogout();
+            }
+        }        
     }
 
     const handlerUsuarioSeleccionadoForma = (usuario) => {
