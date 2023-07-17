@@ -1,30 +1,30 @@
-import { useContext, useReducer, useState } from "react";
+import { useContext/* , useState */ } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { usuariosReducer } from "../reducers/usuariosReducer";
-import { getUsuarioInicial/* , getUsuarios */, getErrorInicial } from "../services/servicioUsuarios";
+import {  getErrorInicial } from "../services/servicioUsuarios";
 import { actualizar, borrar, guardar, listarUsuarios } from "../services/usuarioService";
 import { AuthContexto } from '../auth/context/AuthContexto';
+import { useDispatch, useSelector } from "react-redux";
+import { agregarUsuario, actualizarUsuario, 
+        borrarUsuario, cargandoUsuarios, 
+        onUsuarioSeleccionadoForma, onAbreForma, 
+        onCierraForma, usuarioFormaInicial, 
+        cargandoError } from "../store/slices/usuarios/usuariosSlice";
 
-const usuariosIniciales = [];
-const usuarioFormaInicial = getUsuarioInicial();
 const errorInicial = getErrorInicial();
 
 export const useUsuarios = () => {
-    const [usuarios, dispatch] = useReducer(usuariosReducer, usuariosIniciales);
-    const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(usuarioFormaInicial);
-    const [formularioVisible, setFormularioVisible] = useState(false);
-    const [errores, setErrores] = useState(errorInicial);
+    const {usuarios, usuarioSeleccionado, formularioVisible, errores} = useSelector(state => state.usuarios);
+    const dispatch = useDispatch();
+    
+    //const [errores, setErrores] = useState(errorInicial);
     const navigate = useNavigate();
     const {login, handlerLogout} = useContext(AuthContexto);
 
     const obtenerUsuarios = async () => {        
         try {
             const resultado = await listarUsuarios();
-            dispatch({
-                type: 'cargandoUsuarios',
-                payload: resultado.data,
-            });    
+            dispatch(cargandoUsuarios(resultado.data));    
         } catch (error) {
             if (error.response && error.response.status == 401) {
                 console.warn('Sesion expirada');
@@ -34,12 +34,10 @@ export const useUsuarios = () => {
     }
 
     const handlerUsuarioSeleccionadoForma = (usuario) => {
-        setUsuarioSeleccionado({...usuario});
-        setFormularioVisible(true);
+        dispatch(onUsuarioSeleccionadoForma({...usuario}));
     }
 
     const handlerAgregaUsuario = async (usuario) => {
-        let type;
         let titulo = '';
         let mensaje = '';
         let respuesta;
@@ -51,20 +49,15 @@ export const useUsuarios = () => {
         try {
             if(usuario.id === 0) {
                 titulo = 'Usuario Creado';
-                type = 'agregarUsuario';
                 mensaje = 'Se agregó el usuario';
                 respuesta = await guardar(usuario);
+                dispatch(agregarUsuario(respuesta.data));
             } else {
                 titulo = 'Usuario Actualizado';
-                type = 'actualizarUsuario';
                 mensaje = 'Se actualizó el usuario';
                 respuesta = await actualizar(usuario);
+                dispatch(actualizarUsuario(respuesta.data));
             }
-    
-            dispatch({
-                type,
-                payload: respuesta.data,
-            });
     
             Swal.fire(
                 titulo,
@@ -76,16 +69,17 @@ export const useUsuarios = () => {
             navigate('/usuarios');
         } catch (error) {            
             if (error.response && error.response.status == 400) {
-                setErrores(error.response.data);
-                //console.error(error.response.data);
-            } else if (error.response && error.response.status == 500) {
-                //console.log("Error en la petición");
-                setErrores({username: error.response.data.error, email:error.response.data.error});
+                //setErrores(error.response.data);
+                dispatch(cargandoError(error.response.data));                
+            } else if (error.response && error.response.status == 500) {                
+                //setErrores({username: error.response.data.error, email:error.response.data.error});
+                dispatch(cargandoError({username: error.response.data.error, email:error.response.data.error}));
             } else if (error.response && error.response.status == 401) {
                 console.warn('Sesion expirada');
                 handlerLogout();
             } else {
-                setErrores({errorGeneral: error.response.data.error});
+                //setErrores({errorGeneral: error.response.data.error});
+                dispatch(cargandoError({errorGeneral: error.response.data.error}));
                 throw error;
             }
         }
@@ -109,10 +103,7 @@ export const useUsuarios = () => {
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     await borrar(id);
-                    dispatch({
-                        type: 'borrarUsuario',
-                        payload: id,
-                    });
+                    dispatch(borrarUsuario(id));
                     Swal.fire('Borrado', '', 'success')
                 } else if (result.isDenied) {
                     Swal.fire('No se borró', '', 'info')
@@ -128,13 +119,13 @@ export const useUsuarios = () => {
     }
 
     const handlerAbreForma = () => {
-        setFormularioVisible(true);
+        dispatch(onAbreForma());
     }
 
     const handlerCierraForma = () => {
-        setFormularioVisible(false);
-        setUsuarioSeleccionado(usuarioFormaInicial);
-        setErrores(errorInicial);
+        dispatch(onCierraForma());
+        //setErrores(errorInicial);
+        dispatch(cargandoError(errorInicial));
     }
 
     return {
