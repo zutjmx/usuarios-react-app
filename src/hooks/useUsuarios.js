@@ -1,15 +1,16 @@
-import { useContext/* , useState */ } from "react";
+//import { useContext/* , useState */ } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import {  getErrorInicial } from "../services/servicioUsuarios";
 import { actualizar, borrar, guardar, listarUsuarios } from "../services/usuarioService";
-import { AuthContexto } from '../auth/context/AuthContexto';
+//import { AuthContexto } from '../auth/context/AuthContexto';
 import { useDispatch, useSelector } from "react-redux";
 import { agregarUsuario, actualizarUsuario, 
         borrarUsuario, cargandoUsuarios, 
         onUsuarioSeleccionadoForma, onAbreForma, 
         onCierraForma, usuarioFormaInicial, 
         cargandoError } from "../store/slices/usuarios/usuariosSlice";
+import { useAuth } from "../auth/hooks/useAuth";
 
 const errorInicial = getErrorInicial();
 
@@ -19,7 +20,8 @@ export const useUsuarios = () => {
     
     //const [errores, setErrores] = useState(errorInicial);
     const navigate = useNavigate();
-    const {login, handlerLogout} = useContext(AuthContexto);
+    //const {login, handlerLogout} = useContext(AuthContexto);
+    const {login, handlerLogout} = useAuth();
 
     const obtenerUsuarios = async () => {        
         try {

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+//import { useContext } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 
@@ -8,11 +8,13 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import 'primeicons/primeicons.css';
 
-import { UsuarioContexto } from '../context/UsuarioContexto';
+//import { UsuarioContexto } from '../context/UsuarioContexto';
+import { useUsuarios } from '../hooks/useUsuarios';
 
 export const VistaTablaPF = () => {
 
-    const { usuarios } = useContext(UsuarioContexto);
+    //const { usuarios } = useContext(UsuarioContexto);
+    const { usuarios } = useUsuarios();
 
     const [usuariosAux, setUsuariosAux] = useState([]);
 
