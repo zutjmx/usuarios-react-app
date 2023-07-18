@@ -15,7 +15,7 @@ import { useAuth } from "../auth/hooks/useAuth";
 const errorInicial = getErrorInicial();
 
 export const useUsuarios = () => {
-    const {usuarios, usuarioSeleccionado, formularioVisible, errores} = useSelector(state => state.usuarios);
+    const {usuarios, usuarioSeleccionado, formularioVisible, errores, isLoading} = useSelector(state => state.usuarios);
     const dispatch = useDispatch();
     
     //const [errores, setErrores] = useState(errorInicial);
@@ -141,6 +141,7 @@ export const useUsuarios = () => {
         handlerAbreForma,
         handlerCierraForma,
         obtenerUsuarios,
-        errores
+        errores,
+        isLoading
     }
 }

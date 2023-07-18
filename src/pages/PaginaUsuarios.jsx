@@ -18,7 +18,8 @@ export const PaginaUsuarios = () => {
     const {usuarios, 
         formularioVisible,
         handlerAbreForma,
-        obtenerUsuarios
+        obtenerUsuarios, 
+        isLoading
     } = useUsuarios();
 
     //const {login} = useContext(AuthContexto);
@@ -28,6 +29,16 @@ export const PaginaUsuarios = () => {
         obtenerUsuarios();
     },[obtenerUsuarios]);
     
+    if (isLoading) {
+        return (
+            <>
+                <div className="card my-4 mx-4">
+                    <h3 className="card-header">Cargando Datos</h3>
+                </div>
+            </>
+        );
+    }
+
     return (
         <>
             {!formularioVisible || 
