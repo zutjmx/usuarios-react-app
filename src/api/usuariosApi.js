@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const usuariosApi = axios.create({
-    baseURL: 'http://192.168.1.136:8080/api/v1/usuarios'
+    baseURL: `${import.meta.env.VITE_API_USUARIOS_BASE_URL}/api/v1/usuarios`
 });
 
 usuariosApi.interceptors.request.use(config => {

@@ -10,7 +10,7 @@ export const VistaGetPosts = () => {
     const [posts, setPosts] = useState();
     
     useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/posts')
+        fetch(`${import.meta.env.VITE_API_POSTS_BASE_URL}/posts`)
           .then((response) => {
             return response.json()
           })
