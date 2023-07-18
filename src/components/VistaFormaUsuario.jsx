@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
-import { useContext } from 'react';
+//import { useContext } from 'react';
 import { useState } from "react";
 import Swal from 'sweetalert2';
 import { validaEmail } from '../services/servicioUsuarios';
-import { UsuarioContexto } from '../context/UsuarioContexto';
+//import { UsuarioContexto } from '../context/UsuarioContexto';
+import { useUsuarios } from '../hooks/useUsuarios';
 
 export const VistaFormaUsuario = ({ usuarioSeleccionado, handlerCierraForma }) => {
-    const {handlerAgregaUsuario, usuarioFormaInicial, errores } = useContext(UsuarioContexto);
+    //const {handlerAgregaUsuario, usuarioFormaInicial, errores } = useContext(UsuarioContexto);
+    const {handlerAgregaUsuario, usuarioFormaInicial, errores } = useUsuarios();
     const [formaUsuario, setFormaUsuario] = useState(usuarioFormaInicial);
     const [checked, setChecked] = useState(formaUsuario.admin);
     const { id, username, email, password, admin } = formaUsuario;

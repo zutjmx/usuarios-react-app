@@ -1,10 +1,12 @@
-import { useContext } from 'react';
+//import { useContext } from 'react';
 import { VistaFormaUsuario } from "./VistaFormaUsuario";
-import { UsuarioContexto } from '../context/UsuarioContexto';
+//import { UsuarioContexto } from '../context/UsuarioContexto';
+import { useUsuarios } from '../hooks/useUsuarios';
 
 export const VistaUsuarioModal = () => {
     
-    const {usuarioSeleccionado,handlerCierraForma} = useContext(UsuarioContexto);
+    //const {usuarioSeleccionado,handlerCierraForma} = useContext(UsuarioContexto);
+    const {usuarioSeleccionado,handlerCierraForma} = useUsuarios();
 
     return (
         <>
