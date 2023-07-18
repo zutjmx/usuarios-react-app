@@ -6,12 +6,14 @@ import { VistaPrimeReact } from '../components/VistaPrimeReact';
 import { VistaTablaPF } from '../components/VistaTablaPF';
 import { VistaGetPosts } from '../components/VistaGetPosts';
 import { LinePlot } from '../components/LinePlot';
-import { AuthContexto } from '../auth/context/AuthContexto';
-import { useContext } from "react";
+// import { AuthContexto } from '../auth/context/AuthContexto';
+// import { useContext } from "react";
+import { useAuth } from "../auth/hooks/useAuth";
 
 export const UsuarioRoutes = () => {
 
-    const {login} = useContext(AuthContexto);
+    //const {login} = useContext(AuthContexto);
+    const {login} = useAuth();
 
     return (
         <>

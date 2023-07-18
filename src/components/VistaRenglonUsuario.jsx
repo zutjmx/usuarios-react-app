@@ -1,15 +1,17 @@
 import PropTypes from 'prop-types';
-import { useContext } from 'react';
+//import { useContext } from 'react';
 import { NavLink } from "react-router-dom";
 //import { UsuarioContexto } from '../context/UsuarioContexto';
-import { AuthContexto } from '../auth/context/AuthContexto';
+//import { AuthContexto } from '../auth/context/AuthContexto';
+import { useAuth } from '../auth/hooks/useAuth';
 import { useUsuarios } from '../hooks/useUsuarios';
 
 export const VistaRenglonUsuario = ({ id, username, email, password, admin }) => {
 
     //const { handlerBorrarUsuario, handlerUsuarioSeleccionadoForma } = useContext(UsuarioContexto);
     const { handlerBorrarUsuario, handlerUsuarioSeleccionadoForma } = useUsuarios();
-    const { login } = useContext(AuthContexto);
+    //const { login } = useContext(AuthContexto);
+    const { login } = useAuth();
 
     const onBorrarUsuario = (id) => {
         handlerBorrarUsuario(id);

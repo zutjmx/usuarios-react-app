@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
-import { useContext } from 'react';
+//import { useContext } from 'react';
 import { VistaListaUsuarios } from '../components/VistaListaUsuarios';
 import { VistaUsuarioModal } from '../components/VistaUsuarioModal';
 //import { UsuarioContexto } from '../context/UsuarioContexto';
-import { AuthContexto } from '../auth/context/AuthContexto';
+//import { AuthContexto } from '../auth/context/AuthContexto';
 import { useUsuarios } from '../hooks/useUsuarios';
+import { useAuth } from '../auth/hooks/useAuth';
 
 export const PaginaUsuarios = () => {
 
@@ -20,7 +21,8 @@ export const PaginaUsuarios = () => {
         obtenerUsuarios
     } = useUsuarios();
 
-    const {login} = useContext(AuthContexto);
+    //const {login} = useContext(AuthContexto);
+    const {login} = useAuth();
 
     useEffect(() => {
         obtenerUsuarios();

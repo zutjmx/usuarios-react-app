@@ -1,10 +1,12 @@
-import { useContext } from 'react';
+//import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import { AuthContexto } from '../../auth/context/AuthContexto';
+//import { AuthContexto } from '../../auth/context/AuthContexto';
+import { useAuth } from '../../auth/hooks/useAuth';
 
 export const Navbar = () => {
 
-    const { handlerLogout, login } = useContext(AuthContexto);
+    //const { handlerLogout, login } = useContext(AuthContexto);
+    const { handlerLogout, login } = useAuth();
 
     return (
         <>

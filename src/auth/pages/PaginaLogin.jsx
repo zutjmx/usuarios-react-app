@@ -1,14 +1,16 @@
 import { useState } from "react";
 import Swal from 'sweetalert2';
 import { getUsuarioLoginInicial } from '../../services/servicioUsuarios';
-import { AuthContexto } from '../context/AuthContexto';
-import { useContext } from "react";
+// import { AuthContexto } from '../context/AuthContexto';
+// import { useContext } from "react";
+import { useAuth } from "../hooks/useAuth";
 
 const formaLoginInicial = getUsuarioLoginInicial();
 
 export const PaginaLogin = () => {
 
-    const {handlerLogin} = useContext(AuthContexto);
+    //const {handlerLogin} = useContext(AuthContexto);
+    const {handlerLogin} = useAuth();
 
     const tituloMensajes = 'Login';
     const [formaLogin, setFormaLogin] = useState(formaLoginInicial);

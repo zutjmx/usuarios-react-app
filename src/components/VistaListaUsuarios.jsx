@@ -1,14 +1,16 @@
-import { useContext } from 'react';
+//import { useContext } from 'react';
 import { VistaRenglonUsuario } from './VistaRenglonUsuario';
 //import { UsuarioContexto } from '../context/UsuarioContexto';
-import { AuthContexto } from '../auth/context/AuthContexto';
+//import { AuthContexto } from '../auth/context/AuthContexto';
 import { useUsuarios } from '../hooks/useUsuarios';
+import { useAuth } from '../auth/hooks/useAuth';
 
 export const VistaListaUsuarios = () => {
 
     //const {usuarios} = useContext(UsuarioContexto);
     const {usuarios} = useUsuarios();
-    const {login} = useContext(AuthContexto);
+    //const {login} = useContext(AuthContexto);
+    const {login} = useAuth();
     
     return (
         <>
