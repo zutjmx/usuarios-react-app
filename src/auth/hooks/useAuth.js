@@ -1,16 +1,21 @@
-import { useReducer } from "react";
+//import { useReducer } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { loginReducer } from '../../auth/reducers/loginReducer';
-import { getLoginInicial } from '../../services/servicioUsuarios';
+//import { loginReducer } from '../../auth/reducers/loginReducer';
+import { onLogin, onLogout } from "../../store/slices/auth/authSlice";
+//import { getLoginInicial } from '../../services/servicioUsuarios';
 import { loginUser } from "../services/authService";
-const logiInicial = JSON.parse(sessionStorage.getItem('login')) || getLoginInicial();
+//const logiInicial = JSON.parse(sessionStorage.getItem('login')) || getLoginInicial();
 
 export const useAuth = () => {
 
     const tituloMensajes = 'Login';
 
-    const [login, dispatch] = useReducer(loginReducer, logiInicial);
+    const dispatch = useDispatch();
+    //const [login, dispatch] = useReducer(loginReducer, logiInicial);
+    const {user,isAdmin,isAuth} = useSelector(state => state.auth);
+    
     const navigate = useNavigate();
 
     const handlerLogin = async ({username, password}) => {
@@ -20,10 +25,7 @@ export const useAuth = () => {
             const claims = JSON.parse(window.atob(token.split('.')[1]));
             console.log(claims);
             const user = {username: claims.username};
-            dispatch({
-                type: 'login',
-                payload: {user, isAdmin: claims.isAdmin},
-            });
+            dispatch(onLogin({user, isAdmin: claims.isAdmin}));
             sessionStorage.setItem('login',JSON.stringify({
                 isAuth: true, 
                 isAdmin: claims.isAdmin, 
@@ -65,9 +67,7 @@ export const useAuth = () => {
             denyButtonText: 'No',
         }).then((result) => {
             if (result.isConfirmed) {
-                dispatch({
-                    type: 'logout',            
-                });
+                dispatch(onLogout());
                 sessionStorage.removeItem('login');
                 sessionStorage.removeItem('token');
                 sessionStorage.clear();
@@ -79,7 +79,7 @@ export const useAuth = () => {
     }
 
     return {
-        login,
+        login: {user,isAdmin,isAuth},
         handlerLogin,
         handlerLogout
     }
