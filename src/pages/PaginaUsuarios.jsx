@@ -15,25 +15,28 @@ export const PaginaUsuarios = () => {
         obtenerUsuarios
     } = useContext(UsuarioContexto); */
 
-    const {usuarios, 
+    const { usuarios,
         formularioVisible,
         handlerAbreForma,
-        obtenerUsuarios, 
+        obtenerUsuarios,
         isLoading
     } = useUsuarios();
 
     //const {login} = useContext(AuthContexto);
-    const {login} = useAuth();
+    const { login } = useAuth();
 
     useEffect(() => {
         obtenerUsuarios();
-    },[obtenerUsuarios]);
-    
+    }, [obtenerUsuarios]);
+
     if (isLoading) {
         return (
             <>
                 <div className="card my-4 mx-4">
-                    <h3 className="card-header">Cargando Datos</h3>
+                    {/* <h3 className="card-header">Cargando Datos</h3> */}
+                    <div className="spinner-border text-info" role="status">
+                        <span className="visually-hidden">Cargando Datos...</span>
+                    </div>
                 </div>
             </>
         );
@@ -41,29 +44,29 @@ export const PaginaUsuarios = () => {
 
     return (
         <>
-            {!formularioVisible || 
-                <VistaUsuarioModal/>
+            {!formularioVisible ||
+                <VistaUsuarioModal />
             }
             <div className="card my-4 mx-4">
                 <h3 className="card-header">Bienvenido a Usuarios App</h3>
                 <div className="card-body">
                     <h5 className="card-title">Aplicación CRUD creada en React</h5>
                     <p className="card-text">zutjmx@gmail.com</p>
-                    <div className="row">                        
+                    <div className="row">
                         <div className="col">
-                            {(formularioVisible || !login.isAdmin) || 
-                                <button 
-                                    className="btn btn-primary my-2" 
+                            {(formularioVisible || !login.isAdmin) ||
+                                <button
+                                    className="btn btn-primary my-2"
                                     onClick={handlerAbreForma}
                                 >
                                     Nuevo Usuario
                                 </button>
-                            }                            
+                            }
                             {
                                 usuarios.length === 0
-                                ? <div className="alert alert-info">No hay usuarios registrados</div>
-                                : <VistaListaUsuarios/>
-                            }                            
+                                    ? <div className="alert alert-info">No hay usuarios registrados</div>
+                                    : <VistaListaUsuarios />
+                            }
                         </div>
                     </div>
                 </div>

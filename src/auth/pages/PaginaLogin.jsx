@@ -40,6 +40,14 @@ export const PaginaLogin = () => {
             );
             return;
         }
+
+        Swal.fire({
+            title: tituloMensajes,
+            text: "Validando acceso, favor de esperar",
+            icon: "info",
+            showConfirmButton: false,
+            allowOutsideClick: false
+        });
         
         handlerLogin({username, password});
         

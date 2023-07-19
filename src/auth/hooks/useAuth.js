@@ -52,6 +52,11 @@ export const useAuth = () => {
                     'error'
                 );
             } else {
+                Swal.fire(
+                    tituloMensajes,
+                    error.message,
+                    'error'
+                );
                 throw error;
             }            
         }
