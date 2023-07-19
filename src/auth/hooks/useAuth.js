@@ -54,7 +54,7 @@ export const useAuth = () => {
             } else {
                 Swal.fire(
                     tituloMensajes,
-                    error.message,
+                    `Verifique el estado del backend de usuarios: ${error.message}`,
                     'error'
                 );
                 throw error;
