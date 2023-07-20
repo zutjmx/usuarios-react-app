@@ -32,7 +32,7 @@ export const PaginaUsuarios = () => {
     if (isLoading) {
         return (
             <>
-                <div className="card my-4 mx-4">
+                <div className="card my-4 mx-4 text-center">
                     {/* <h3 className="card-header">Cargando Datos</h3> */}
                     <div className="spinner-border text-info" role="status">
                         <span className="visually-hidden">Cargando Datos...</span>

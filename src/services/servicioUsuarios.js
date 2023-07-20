@@ -26,6 +26,7 @@ export const getLoginInicial = () => {
 		isAuth: false,
 		isAdmin: false,
 		user: undefined,
+		isLoginLoading: false,
 	}
 	return loginInicial;
 }

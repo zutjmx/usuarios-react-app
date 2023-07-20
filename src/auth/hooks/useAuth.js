@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 //import { loginReducer } from '../../auth/reducers/loginReducer';
-import { onLogin, onLogout } from "../../store/slices/auth/authSlice";
+import { onLogin, onLogout, onInitLogin } from "../../store/slices/auth/authSlice";
 //import { getLoginInicial } from '../../services/servicioUsuarios';
 import { loginUser } from "../services/authService";
 //const logiInicial = JSON.parse(sessionStorage.getItem('login')) || getLoginInicial();
@@ -20,6 +20,7 @@ export const useAuth = () => {
 
     const handlerLogin = async ({username, password}) => {
         try {
+            dispatch(onInitLogin());
             const respuestaLogin = await loginUser({username, password});
             const token = respuestaLogin.data.token;
             const claims = JSON.parse(window.atob(token.split('.')[1]));
@@ -39,6 +40,7 @@ export const useAuth = () => {
             );
             navigate('/usuarios');
         } catch(error) {
+            dispatch(onLogout());
             if(error.response?.status == 401) {
                 Swal.fire(
                     tituloMensajes,
