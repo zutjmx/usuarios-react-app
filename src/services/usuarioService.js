@@ -12,6 +12,16 @@ export const listarUsuarios = async () => {
     }
 }
 
+export const paginarUsuarios = async (pagina = 0) => {    
+    try {
+        const respuesta = await usuariosApi.get(`${BASE_URL}/paginar/${pagina}`);        
+        return respuesta;
+    } catch (error) {
+        console.error('error en paginarUsuarios: ', error);
+        throw error;
+    }
+}
+
 export const guardar = async ({username, email, password, admin}) => {
     // eslint-disable-next-line no-useless-catch
     try {

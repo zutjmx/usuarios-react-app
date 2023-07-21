@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import {  getErrorInicial } from "../services/servicioUsuarios";
-import { actualizar, borrar, guardar, listarUsuarios } from "../services/usuarioService";
+import { actualizar, borrar, guardar, /* listarUsuarios,  */paginarUsuarios } from "../services/usuarioService";
 //import { AuthContexto } from '../auth/context/AuthContexto';
 import { useDispatch, useSelector } from "react-redux";
 import { agregarUsuario, actualizarUsuario, 
@@ -15,7 +15,7 @@ import { useAuth } from "../auth/hooks/useAuth";
 const errorInicial = getErrorInicial();
 
 export const useUsuarios = () => {
-    const {usuarios, usuarioSeleccionado, formularioVisible, errores, isLoading} = useSelector(state => state.usuarios);
+    const {usuarios, usuarioSeleccionado, formularioVisible, errores, isLoading, paginator} = useSelector(state => state.usuarios);
     const dispatch = useDispatch();
     
     //const [errores, setErrores] = useState(errorInicial);
@@ -23,9 +23,10 @@ export const useUsuarios = () => {
     //const {login, handlerLogout} = useContext(AuthContexto);
     const {login, handlerLogout} = useAuth();
 
-    const obtenerUsuarios = async () => {        
+    const obtenerUsuarios = async (pagina = 0) => {        
         try {
-            const resultado = await listarUsuarios();
+            //const resultado = await listarUsuarios();
+            const resultado = await paginarUsuarios(pagina);
             dispatch(cargandoUsuarios(resultado.data));    
         } catch (error) {
             if (error.response && error.response.status == 401) {
@@ -142,6 +143,7 @@ export const useUsuarios = () => {
         handlerCierraForma,
         obtenerUsuarios,
         errores,
-        isLoading
+        isLoading,
+        paginator
     }
 }

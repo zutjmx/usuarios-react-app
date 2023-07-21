@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 //import { useContext } from 'react';
 import { VistaListaUsuarios } from '../components/VistaListaUsuarios';
 import { VistaUsuarioModal } from '../components/VistaUsuarioModal';
@@ -6,28 +7,33 @@ import { VistaUsuarioModal } from '../components/VistaUsuarioModal';
 //import { AuthContexto } from '../auth/context/AuthContexto';
 import { useUsuarios } from '../hooks/useUsuarios';
 import { useAuth } from '../auth/hooks/useAuth';
+import { Paginator } from '../components/Paginator';
 
 export const PaginaUsuarios = () => {
-
+    
+    const {pagina} = useParams();
+    
     /* const {usuarios, 
         formularioVisible,
         handlerAbreForma,
         obtenerUsuarios
     } = useContext(UsuarioContexto); */
 
-    const { usuarios,
+    const { 
+        usuarios,
         formularioVisible,
         handlerAbreForma,
         obtenerUsuarios,
-        isLoading
+        isLoading, 
+        paginator
     } = useUsuarios();
 
     //const {login} = useContext(AuthContexto);
     const { login } = useAuth();
 
     useEffect(() => {
-        obtenerUsuarios();
-    }, [obtenerUsuarios]);
+        obtenerUsuarios(pagina);
+    }, [obtenerUsuarios,pagina]);
 
     if (isLoading) {
         return (
@@ -65,7 +71,13 @@ export const PaginaUsuarios = () => {
                             {
                                 usuarios.length === 0
                                     ? <div className="alert alert-info">No hay usuarios registrados</div>
-                                    : <VistaListaUsuarios />
+                                    :<>
+                                        <VistaListaUsuarios />
+                                        <Paginator 
+                                            url="/usuarios/paginar" 
+                                            paginator={paginator}
+                                        />
+                                    </>
                             }
                         </div>
                     </div>
